@@ -1,8 +1,4 @@
-#cms:
-#    resource: "@CmsBundle/Controller/"
-#    type:     annotation
-#    prefix:   /
-
-#app:
-#    resource: '@AppBundle/Controller/'
-#    type: annotation
+cms_api_rest:
+    type: rest
+    resource: "@CmsApiRestBundle/Controller/config/routing.xml"
+    prefix:   /
