@@ -4,6 +4,8 @@ namespace CmsApiRestBundle\Controller\User;
 
 use CmsBundle\Application\Page\CommandHandler\FindPagesByUserId\FindPagesByUserIdCommand;
 use CmsBundle\Application\Page\CommandHandler\FindPagesByUserId\FindPagesByUserIdCommandHandler;
+use CmsBundle\Application\User\CommandHandler\GetUser\GetUserCommand;
+use CmsBundle\Application\User\CommandHandler\GetUser\GetUserCommandHandler;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,6 +18,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class UserController extends Controller
 {
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get user",
+     * )
+     *
+     * @param string $id
+     * @return \CmsBundle\Application\User\CommandHandler\GetUser\GetUserCommandResult
+     */
+    public function getAction(string $id)
+    {
+        /** @var GetUserCommandHandler $getUserCommandHandler */
+        $getUserCommandHandler = $this->get('cms.application.user.get_user.get_user_command_handler');
+
+        return $getUserCommandHandler->handle(GetUserCommand::instance($id));
+    }
+
+
     /**
      * @ApiDoc(
      *  resource=true,

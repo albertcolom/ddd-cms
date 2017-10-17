@@ -10,6 +10,11 @@ services:
         arguments:
             - '@cms.infrastructure.model.site.repository.doctrine_site_repository'
 
+    cms.application.user.get_user.get_user_command_handler:
+        class: CmsBundle\Application\User\CommandHandler\GetUser\GetUserCommandHandler
+        arguments:
+            - '@cms.infrastructure.model.user.repository.doctrine_user_repository'
+
     cms.application.user.create_user.create_user_command_handler:
         class: CmsBundle\Application\User\CommandHandler\CreateUser\CreateUserCommandHandler
         arguments:
