@@ -1,3 +1,7 @@
-cms_api_rest:
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+
+cmsApiRest:
     resource: "@CmsApiRestBundle/Resources/config/routing.yml"
     prefix:   /

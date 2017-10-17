@@ -1,3 +1,7 @@
-cms_api_rest:
+page:
     type: rest
     resource: "@CmsApiRestBundle/Controller/Page/PageController.php"
+
+user:
+    type: rest
+    resource: "@CmsApiRestBundle/Controller/User/UserController.php"
