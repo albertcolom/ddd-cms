@@ -6,7 +6,6 @@ use CmsBundle\Application\Common\CommandHandler\Command;
 use CmsBundle\Application\Common\CommandHandler\CommandHandler;
 use CmsBundle\Domain\Model\Site\Entity\Site;
 use CmsBundle\Domain\Model\Site\Repository\SiteRepository;
-use CmsBundle\Domain\Model\Site\ValueObject\SiteIdentity;
 
 class GetSiteCommandHandler implements CommandHandler
 {
@@ -24,10 +23,8 @@ class GetSiteCommandHandler implements CommandHandler
      */
     public function handle(Command $command)
     {
-        /** @var SiteIdentity $siteIdentity */
-        $siteIdentity = SiteIdentity::instanceFromId($command->id());
         /** @var Site $site */
-        $site = $this->siteRepository->getOneById($siteIdentity);
+        $site = $this->siteRepository->getOneById($command->siteIdentity());
 
         return GetSiteCommandResult::instance($site);
     }

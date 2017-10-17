@@ -15,7 +15,7 @@ class DoctrineSiteRepository extends EntityRepository implements SiteRepository
         $site = $this->findOneById($siteIdentity);
 
         if ($site === null) {
-            throw new SiteNotFoundException('Hoooo nooooo');
+            throw  SiteNotFoundException::fromSiteId($siteIdentity);
         }
 
         return $site;

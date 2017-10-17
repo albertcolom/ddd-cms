@@ -3,31 +3,28 @@
 namespace CmsBundle\Application\Page\CommandHandler\GetPage;
 
 use CmsBundle\Application\Common\CommandHandler\Command;
+use CmsBundle\Domain\Model\Page\ValueObject\PageIdentity;
 
 class GetPageCommand implements Command
 {
-    /** @var string  */
-    private $id;
+    /** @var PageIdentity */
+    private $pageIdentity;
 
     private function __construct(string $id)
     {
-        $this->id = $id;
+        $this->pageIdentity = PageIdentity::instanceFromId($id);
     }
 
-    /**
-     * @param string $id
-     * @return GetPageCommand
-     */
     public static function instance(string $id): GetPageCommand
     {
         return new self($id);
     }
 
     /**
-     * @return string
+     * @return PageIdentity
      */
-    public function id(): string
+    public function pageIdentity(): PageIdentity
     {
-        return $this->id;
+        return $this->pageIdentity;
     }
 }

@@ -3,31 +3,28 @@
 namespace CmsBundle\Application\Site\CommandHandler\GetSite;
 
 use CmsBundle\Application\Common\CommandHandler\Command;
+use CmsBundle\Domain\Model\Site\ValueObject\SiteIdentity;
 
 class GetSiteCommand implements Command
 {
-    /** @var string  */
-    private $id;
+    /** @var SiteIdentity */
+    private $siteIdentity;
 
     private function __construct(string $id)
     {
-        $this->id = $id;
+        $this->siteIdentity = SiteIdentity::instanceFromId($id);
     }
 
-    /**
-     * @param string $id
-     * @return GetSiteCommand
-     */
     public static function instance(string $id): GetSiteCommand
     {
         return new self($id);
     }
 
     /**
-     * @return string
+     * @return SiteIdentity
      */
-    public function id(): string
+    public function siteIdentity(): SiteIdentity
     {
-        return $this->id;
+        return $this->siteIdentity;
     }
 }

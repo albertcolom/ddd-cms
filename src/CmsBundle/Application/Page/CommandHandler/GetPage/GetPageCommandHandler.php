@@ -6,7 +6,6 @@ use CmsBundle\Application\Common\CommandHandler\Command;
 use CmsBundle\Application\Common\CommandHandler\CommandHandler;
 use CmsBundle\Domain\Model\Page\Entity\Page;
 use CmsBundle\Domain\Model\Page\Repository\PageRepository;
-use CmsBundle\Domain\Model\Page\ValueObject\PageIdentity;
 
 class GetPageCommandHandler implements CommandHandler
 {
@@ -24,10 +23,8 @@ class GetPageCommandHandler implements CommandHandler
      */
     public function handle(Command $command)
     {
-        /** @var PageIdentity $pageIdentity */
-        $pageIdentity = PageIdentity::instanceFromId($command->id());
         /** @var Page $page */
-        $page = $this->pageRepository->getOneById($pageIdentity);
+        $page = $this->pageRepository->getOneById($command->pageIdentity());
 
         return GetPageCommandResult::instance($page);
     }
