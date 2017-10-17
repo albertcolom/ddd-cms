@@ -1,13 +1,35 @@
 version: '2'
 services:
+
+  php:
+    build: resources/docker/php
+    container_name: ddd_cms_php7
+    volumes:
+      - ".:/app"
+    links:
+      - mysql
+
+  nginx:
+    build: resources/docker/nginx
+    container_name: ddd_cms_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes_from:
+      - php
+
   mysql:
     image: mysql:5.7
+    container_name: ddd_cms_mysql
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=ddd-cms
+       MYSQL_ROOT_PASSWORD: root
+       MYSQL_USER: user
+       MYSQL_PASSWORD: root
+       MYSQL_DATABASE: ddd-cms
     volumes:
       - db_data:/var/lib/mysql
+
 volumes:
   db_data:
