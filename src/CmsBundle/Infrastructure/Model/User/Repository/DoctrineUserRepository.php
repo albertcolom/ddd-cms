@@ -15,7 +15,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
         $user = $this->findOneById($userIdentity);
 
         if ($user === null) {
-            throw new UserNotFoundException('Hoooo nooooo');
+            throw UserNotFoundException::fromUserId($userIdentity);
         }
 
         return $user;
