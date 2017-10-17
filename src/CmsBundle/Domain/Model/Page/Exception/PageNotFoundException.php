@@ -2,7 +2,12 @@
 
 namespace CmsBundle\Domain\Model\Page\Exception;
 
-class PageNotFoundException extends \Exception
-{
+use CmsBundle\Domain\Model\Common\Exception\NotFoundException;
 
+class PageNotFoundException extends NotFoundException
+{
+    public static function fromPageId(string $id)
+    {
+        return new self(sprintf('Page with id "%s" not found', $id));
+    }
 }

@@ -90,4 +90,4 @@ fos_rest:
     exception:
         enabled: true
         codes:
-            CmsBundle\Domain\Model\Page\Exception\PageNotFoundException: 404
+            CmsBundle\Domain\Model\Common\Exception\NotFoundException: 404
