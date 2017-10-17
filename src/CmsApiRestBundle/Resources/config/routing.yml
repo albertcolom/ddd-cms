@@ -5,3 +5,7 @@ page:
 user:
     type: rest
     resource: "@CmsApiRestBundle/Controller/User/UserController.php"
+
+site:
+    type: rest
+    resource: "@CmsApiRestBundle/Controller/Site/SiteController.php"
