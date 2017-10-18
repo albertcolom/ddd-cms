@@ -1,0 +1,7 @@
+CmsBundle\Domain\Model\User\ValueObject\UserIdentity:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: string
+            groups: [Default]

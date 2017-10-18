@@ -1,0 +1,20 @@
+CmsBundle\Domain\Model\User\Entity\User:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            inline: true
+            groups: [Default]
+            type: CmsBundle\Domain\Model\User\ValueObject\UserIdentity
+        email:
+            expose: true
+            type: string
+            groups: [Default]
+        name:
+            expose: true
+            type: string
+            groups: [Default]
+        createdOn:
+            expose: true
+            type: DateTime
+            groups: [Default]
