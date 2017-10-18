@@ -6,6 +6,7 @@ use CmsBundle\Application\Common\CommandHandler\Command;
 use CmsBundle\Application\Common\CommandHandler\CommandHandler;
 use CmsBundle\Domain\Model\User\Entity\User;
 use CmsBundle\Domain\Model\User\Repository\UserRepository;
+use CmsBundle\Domain\Model\User\ValueObject\UserIdentity;
 
 class GetUserCommandHandler implements CommandHandler
 {
@@ -23,8 +24,11 @@ class GetUserCommandHandler implements CommandHandler
      */
     public function handle(Command $command)
     {
+        /** @var UserIdentity $userIdentity */
+        $userIdentity = UserIdentity::instanceFromId($command->id());
+
         /** @var User $user */
-        $user = $this->userRepository->getOneById($command->userIdentity());
+        $user = $this->userRepository->getOneById($userIdentity);
 
         return GetUserCommandResult::instance($user);
     }

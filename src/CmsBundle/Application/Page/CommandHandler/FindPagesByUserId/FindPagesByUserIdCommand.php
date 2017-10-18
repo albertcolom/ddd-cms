@@ -3,28 +3,31 @@
 namespace CmsBundle\Application\Page\CommandHandler\FindPagesByUserId;
 
 use CmsBundle\Application\Common\CommandHandler\Command;
-use CmsBundle\Domain\Model\User\ValueObject\UserIdentity;
 
 class FindPagesByUserIdCommand implements Command
 {
-    /** @var UserIdentity */
-    private $userIdentity;
+    /** @var string  */
+    private $id;
 
     private function __construct(string $id)
     {
-        $this->userIdentity = UserIdentity::instanceFromId($id);
+        $this->id = $id;
     }
 
+    /**
+     * @param string $id
+     * @return FindPagesByUserIdCommand
+     */
     public static function instance(string $id): FindPagesByUserIdCommand
     {
         return new self($id);
     }
 
     /**
-     * @return UserIdentity
+     * @return string
      */
-    public function userIdentity(): UserIdentity
+    public function id(): string
     {
-        return $this->userIdentity;
+        return $this->id;
     }
 }

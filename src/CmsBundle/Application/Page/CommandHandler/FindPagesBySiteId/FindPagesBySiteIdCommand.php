@@ -3,29 +3,31 @@
 namespace CmsBundle\Application\Page\CommandHandler\FindPagesBySiteId;
 
 use CmsBundle\Application\Common\CommandHandler\Command;
-use CmsBundle\Domain\Model\Page\ValueObject\PageIdentity;
-use CmsBundle\Domain\Model\User\ValueObject\UserIdentity;
 
 class FindPagesBySiteIdCommand implements Command
 {
-    /** @var PageIdentity */
-    private $pageIdentity;
+    /** @var string  */
+    private $id;
 
     private function __construct(string $id)
     {
-        $this->pageIdentity = PageIdentity::instanceFromId($id);
+        $this->id = $id;
     }
 
+    /**
+     * @param string $id
+     * @return FindPagesBySiteIdCommand
+     */
     public static function instance(string $id): FindPagesBySiteIdCommand
     {
         return new self($id);
     }
 
     /**
-     * @return PageIdentity
+     * @return string
      */
-    public function pageIdentity(): PageIdentity
+    public function id(): string
     {
-        return $this->pageIdentity;
+        return $this->id;
     }
 }

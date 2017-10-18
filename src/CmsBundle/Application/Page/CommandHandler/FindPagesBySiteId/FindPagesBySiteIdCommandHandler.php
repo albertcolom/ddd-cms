@@ -5,6 +5,7 @@ namespace CmsBundle\Application\Page\CommandHandler\FindPagesBySiteId;
 use CmsBundle\Application\Common\CommandHandler\Command;
 use CmsBundle\Application\Common\CommandHandler\CommandHandler;
 use CmsBundle\Domain\Model\Page\Repository\PageRepository;
+use CmsBundle\Domain\Model\Page\ValueObject\PageIdentity;
 
 class FindPagesBySiteIdCommandHandler implements CommandHandler
 {
@@ -22,6 +23,9 @@ class FindPagesBySiteIdCommandHandler implements CommandHandler
      */
     public function handle(Command $command)
     {
-        return $this->pageRepository->findBySiteId($command->pageIdentity());
+        /** @var PageIdentity $pageIdentity */
+        $pageIdentity = PageIdentity::instanceFromId($command->id());
+
+        return $this->pageRepository->findBySiteId($pageIdentity);
     }
 }
