@@ -3,6 +3,7 @@
 namespace CmsBundle\Domain\Model\Common\ValueObject;
 
 use Ramsey\Uuid\Uuid;
+use Webmozart\Assert\Assert;
 
 abstract class Identity
 {
@@ -48,6 +49,8 @@ abstract class Identity
      */
     private function setId(string $id)
     {
+        Assert::uuid($id);
+
         $this->id = $id;
     }
 
