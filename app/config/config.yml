@@ -71,6 +71,7 @@ swiftmailer:
 
 fos_rest:
     routing_loader:
+        include_format: false
         default_format: json
 
     view:

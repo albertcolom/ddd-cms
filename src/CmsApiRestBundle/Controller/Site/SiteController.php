@@ -5,11 +5,16 @@ namespace CmsApiRestBundle\Controller\Site;
 use CmsBundle\Application\Page\CommandHandler\FindPagesBySiteId\FindPagesBySiteIdCommand;
 use CmsBundle\Application\Page\CommandHandler\FindPagesBySiteId\FindPagesBySiteIdCommandHandler;
 use CmsBundle\Application\Page\CommandHandler\FindPagesByUserId\FindPagesByUserIdCommandHandler;
+use CmsBundle\Application\Site\CommandHandler\CreateSite\CreateSiteCommand;
+use CmsBundle\Application\Site\CommandHandler\CreateSite\CreateSiteCommandHandler;
 use CmsBundle\Application\Site\CommandHandler\GetSite\GetSiteCommand;
 use CmsBundle\Application\Site\CommandHandler\GetSite\GetSiteCommandHandler;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
+use FOS\RestBundle\Controller\Annotations\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class SiteController
@@ -25,6 +30,7 @@ class SiteController extends Controller
      *  description="Get user",
      * )
      *
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param string $id
      * @return \CmsBundle\Application\Site\CommandHandler\GetSite\GetSiteCommandResult
@@ -40,8 +46,38 @@ class SiteController extends Controller
     /**
      * @ApiDoc(
      *  resource=true,
+     *  description="Create user",
+     * )
+     *
+     * @RequestParam(name="name", description="The site name")
+     * @RequestParam(name="description", description="The site description")
+     *
+     * @View(statusCode=202, serializerGroups={"Default"})
+     *
+     * @param Request $request
+     *
+     * @return \CmsBundle\Application\Site\CommandHandler\CreateSite\CreateSiteCommandResult
+     */
+    public function postAction(Request $request)
+    {
+        /** @var CreateSiteCommandHandler $createSiteCommandHandler */
+        $createSiteCommandHandler = $this->get('cms.application.site.create_site.create_site_command_handler');
+
+        $command = CreateSiteCommand::instance(
+            $request->request->get('name'),
+            $request->request->get('description')
+        );
+
+        return $createSiteCommandHandler->handle($command);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
      *  description="Get site pages",
      * )
+     *
+     * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param string $id
      * @return array
