@@ -10,7 +10,7 @@ interface PageRepository
 {
     public function getOneById(PageIdentity $pageIdentity): Page;
 
-    public function findOneById(PageIdentity $pageIdentity): ?Page;
+    public function findAllPages(array $filter, array $order, int $limit, int $offset);
 
     public function findBySiteId(PageIdentity $siteIdentity): array;
 

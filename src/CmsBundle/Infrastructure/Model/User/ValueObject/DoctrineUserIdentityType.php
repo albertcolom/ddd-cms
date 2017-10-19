@@ -13,7 +13,7 @@ class DoctrineUserIdentityType extends GuidType
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return (null === $value) ? null : (string) $value->id();
+        return (null === $value) ? null : (string) $value;
     }
 
     /**

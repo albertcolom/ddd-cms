@@ -25,6 +25,11 @@ services:
         arguments:
             - '@cms.infrastructure.model.page.repository.doctrine_page_repository'
 
+    cms.application.page.find_page.find_page_command_handler:
+        class: CmsBundle\Application\Page\CommandHandler\FindPages\FindPagesCommandHandler
+        arguments:
+            - '@cms.infrastructure.model.page.repository.doctrine_page_repository'
+
     cms.application.page.create_page.create_page_command_handler:
         class: CmsBundle\Application\Page\CommandHandler\CreatePage\CreatePageCommandHandler
         arguments:

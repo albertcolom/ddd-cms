@@ -13,7 +13,8 @@ class DoctrinePageRepository extends EntityRepository implements PageRepository
 {
     public function getOneById(PageIdentity $pageIdentity): Page
     {
-        $page = $this->findOneById($pageIdentity);
+        /** @var Page $page */
+        $page = $this->findOneBy(['id' => $pageIdentity]);
 
         if ($page === null){
             throw PageNotFoundException::fromPageId($pageIdentity);
@@ -22,13 +23,9 @@ class DoctrinePageRepository extends EntityRepository implements PageRepository
         return $page;
     }
 
-    public function findOneById(PageIdentity $pageIdentity): ?Page
+    public function findAllPages(array $filter, array $order, int $limit, int $offset)
     {
-        return $this->createQueryBuilder('page')
-            ->where('page.id = :id')
-            ->setParameter('id', $pageIdentity->id())
-            ->getQuery()
-            ->getOneOrNullResult();
+        return $this->findBy($filter, $order, $limit, $offset);
     }
 
     public function findBySiteId(PageIdentity $siteIdentity): array
