@@ -12,10 +12,6 @@ interface PageRepository
 
     public function findAllPages(array $filter, array $order, int $limit, int $offset);
 
-    public function findBySiteId(PageIdentity $siteIdentity): array;
-
-    public function findByUserId(UserIdentity $userIdentity): array;
-
     public function add(Page $page): void;
 
     public function nextIdentity(): PageIdentity;

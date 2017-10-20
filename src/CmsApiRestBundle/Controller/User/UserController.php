@@ -2,8 +2,6 @@
 
 namespace CmsApiRestBundle\Controller\User;
 
-use CmsBundle\Application\Page\CommandHandler\FindPagesByUserId\FindPagesByUserIdCommand;
-use CmsBundle\Application\Page\CommandHandler\FindPagesByUserId\FindPagesByUserIdCommandHandler;
 use CmsBundle\Application\User\CommandHandler\CreateUser\CreateUserCommand;
 use CmsBundle\Application\User\CommandHandler\CreateUser\CreateUserCommandHandler;
 use CmsBundle\Application\User\CommandHandler\GetUser\GetUserCommand;
@@ -68,25 +66,5 @@ class UserController extends Controller
         );
 
         return $createUserCommandHandler->handle($command);
-    }
-
-
-    /**
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Get user pages",
-     * )
-     *
-     * @View(statusCode=200, serializerGroups={"Default"})
-     *
-     * @param string $id
-     * @return \CmsBundle\Application\Page\CommandHandler\GetPage\GetPageCommandResult
-     */
-    public function getPagesAction(string $id)
-    {
-        /** @var FindPagesByUserIdCommandHandler $findPagesByuserIdCommandHandler */
-        $findPagesByUserIdCommandHandler = $this->get('cms.application.page.find_pages_by_user_id.find_pages_by_user_id_command_handler');
-
-        return $findPagesByUserIdCommandHandler->handle(FindPagesByUserIdCommand::instance($id));
     }
 }

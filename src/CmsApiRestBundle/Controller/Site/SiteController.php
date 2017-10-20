@@ -2,9 +2,6 @@
 
 namespace CmsApiRestBundle\Controller\Site;
 
-use CmsBundle\Application\Page\CommandHandler\FindPagesBySiteId\FindPagesBySiteIdCommand;
-use CmsBundle\Application\Page\CommandHandler\FindPagesBySiteId\FindPagesBySiteIdCommandHandler;
-use CmsBundle\Application\Page\CommandHandler\FindPagesByUserId\FindPagesByUserIdCommandHandler;
 use CmsBundle\Application\Site\CommandHandler\CreateSite\CreateSiteCommand;
 use CmsBundle\Application\Site\CommandHandler\CreateSite\CreateSiteCommandHandler;
 use CmsBundle\Application\Site\CommandHandler\GetSite\GetSiteCommand;
@@ -69,26 +66,5 @@ class SiteController extends Controller
         );
 
         return $createSiteCommandHandler->handle($command);
-    }
-
-    /**
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Get site pages",
-     * )
-     *
-     * @View(statusCode=200, serializerGroups={"Default"})
-     *
-     * @param string $id
-     * @return array
-     */
-    public function getPagesAction(string $id)
-    {
-        /** @var FindPagesByUserIdCommandHandler $findPagesByuserIdCommandHandler */
-
-        /** @var FindPagesBySiteIdCommandHandler $findPagesBySiteIdCommandHandler */
-        $findPagesBySiteIdCommandHandler = $this->get('cms.application.page.find_pages_by_site_id.find_pages_by_site_id_command_handler');
-
-        return $findPagesBySiteIdCommandHandler->handle(FindPagesBySiteIdCommand::instance($id));
     }
 }
