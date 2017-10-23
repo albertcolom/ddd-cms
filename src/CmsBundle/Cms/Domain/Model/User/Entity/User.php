@@ -27,7 +27,7 @@ class User
     {
         $this->id = $id;
         $this->name = $name;
-        $this->email = $email;
+        $this->setEmail($email);
         $this->createdOn = new \DateTime();
     }
 
@@ -79,6 +79,10 @@ class User
      */
     public function setEmail(string $email)
     {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new \InvalidArgumentException("Invalid email $email");
+        }
+
         $this->email = $email;
     }
 
