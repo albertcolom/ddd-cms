@@ -30,7 +30,7 @@ class CreateUserCommandResult implements CommandResult
     /**
      * @return User
      */
-    public function getUser(): User
+    public function user(): User
     {
         return $this->user;
     }

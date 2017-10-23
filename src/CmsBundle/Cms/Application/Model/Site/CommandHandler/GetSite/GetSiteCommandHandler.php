@@ -26,8 +26,6 @@ class GetSiteCommandHandler implements CommandHandler
     {
         /** @var SiteIdentity $siteIdentity */
         $siteIdentity = SiteIdentity::instanceFromId($command->id());
-
-        /** @var Site $site */
         $site = $this->siteRepository->getOneById($siteIdentity);
 
         return GetSiteCommandResult::instance($site);

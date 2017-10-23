@@ -8,11 +8,11 @@ use CmsBundle\Cms\Domain\Model\User\ValueObject\UserIdentity;
 
 class CreatePageCommand implements Command
 {
-    /** @var UserIdentity */
-    private $userIdentity;
+    /** @var string */
+    private $userId;
 
-    /** @var SiteIdentity */
-    private $siteIdentity;
+    /** @var string */
+    private $siteId;
 
     /** @var string */
     private $content;
@@ -22,8 +22,8 @@ class CreatePageCommand implements Command
 
     private function __construct(string $userId, string $siteId, string $content, ?int $status)
     {
-        $this->userIdentity = UserIdentity::instanceFromId($userId);
-        $this->siteIdentity = SiteIdentity::instanceFromId($siteId);
+        $this->userId = $userId;
+        $this->siteId = $siteId;
         $this->content = $content;
         $this->status = $status;
     }
@@ -38,19 +38,19 @@ class CreatePageCommand implements Command
     }
 
     /**
-     * @return UserIdentity
+     * @return string
      */
-    public function userIdentity(): UserIdentity
+    public function userId(): string
     {
-        return $this->userIdentity;
+        return $this->userId;
     }
 
     /**
-     * @return SiteIdentity
+     * @return string
      */
-    public function siteIdentity(): SiteIdentity
+    public function siteId(): string
     {
-        return $this->siteIdentity;
+        return $this->siteId;
     }
 
     /**

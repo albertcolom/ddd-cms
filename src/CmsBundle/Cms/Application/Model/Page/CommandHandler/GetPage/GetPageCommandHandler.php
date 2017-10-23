@@ -26,8 +26,6 @@ class GetPageCommandHandler implements CommandHandler
     {
         /** @var PageIdentity $pageIdentity */
         $pageIdentity = PageIdentity::instanceFromId($command->id());
-
-        /** @var Page $page */
         $page = $this->pageRepository->getOneById($pageIdentity);
 
         return GetPageCommandResult::instance($page);

@@ -26,8 +26,6 @@ class GetUserCommandHandler implements CommandHandler
     {
         /** @var UserIdentity $userIdentity */
         $userIdentity = UserIdentity::instanceFromId($command->id());
-
-        /** @var User $user */
         $user = $this->userRepository->getOneById($userIdentity);
 
         return GetUserCommandResult::instance($user);
