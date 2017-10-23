@@ -48,7 +48,7 @@ class GetPageCommandHandlerTest extends TestCase
         $commandResult = $commandHandler->handle($this->buildGetPageCommand());
 
         $this->assertInstanceOf(Page::class, $commandResult->page());
-        $this->assertNotNull($commandResult->page()->id());
+        $this->assertNotNull($commandResult->page());
     }
 
     /**

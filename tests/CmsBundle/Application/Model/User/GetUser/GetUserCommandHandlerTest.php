@@ -46,7 +46,7 @@ class CreateUserCommandHandlerTest extends TestCase
         $commandResult = $commandHandler->handle($this->buildGetUserCommand());
 
         $this->assertInstanceOf(User::class, $commandResult->user());
-        $this->assertNotNull($commandResult->user()->id());
+        $this->assertNotNull($commandResult->user());
     }
 
     /**

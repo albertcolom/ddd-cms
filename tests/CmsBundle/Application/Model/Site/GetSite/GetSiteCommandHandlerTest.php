@@ -43,7 +43,7 @@ class GetSiteCommandHandlerTest extends TestCase
         $commandResult = $commandHandler->handle($this->buildGetSiteCommand());
 
         $this->assertInstanceOf(Site::class, $commandResult->site());
-        $this->assertNotNull($commandResult->site()->id());
+        $this->assertNotNull($commandResult->site());
     }
 
     /**
