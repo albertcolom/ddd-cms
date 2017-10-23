@@ -91,18 +91,18 @@ fos_rest:
     exception:
         enabled: true
         codes:
-            CmsBundle\Domain\Model\Common\Exception\NotFoundException: 404
+            CmsBundle\Cms\Domain\Model\Common\Exception\NotFoundException: 404
 
 jms_serializer:
     metadata:
         auto_detection: true
         directories:
             User:
-                namespace_prefix: "CmsBundle\\Domain\\Model\\User"
-                path: "@CmsBundle/Infrastructure/Serializer/User"
+                namespace_prefix: "CmsBundle\\Cms\\Domain\\Model\\User"
+                path: "@CmsBundle/Cms/Infrastructure/Serializer/User"
             Site:
-                namespace_prefix: "CmsBundle\\Domain\\Model\\Site"
-                path: "@CmsBundle/Infrastructure/Serializer/Site"
+                namespace_prefix: "CmsBundle\\Cms\\Domain\\Model\\Site"
+                path: "@CmsBundle/Cms/Infrastructure/Serializer/Site"
             Page:
-                namespace_prefix: "CmsBundle\\Domain\\Model\\Page"
-                path: "@CmsBundle/Infrastructure/Serializer/Page"
+                namespace_prefix: "CmsBundle\\Cms\\Domain\\Model\\Page"
+                path: "@CmsBundle/Cms/Infrastructure/Serializer/Page"

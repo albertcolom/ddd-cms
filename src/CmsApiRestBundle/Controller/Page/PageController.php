@@ -2,14 +2,14 @@
 
 namespace CmsApiRestBundle\Controller\Page;
 
-use CmsBundle\Application\Common\Request\QueryParams;
-use CmsBundle\Application\Page\CommandHandler\CreatePage\CreatePageCommand;
-use CmsBundle\Application\Page\CommandHandler\CreatePage\CreatePageCommandHandler;
-use CmsBundle\Application\Page\CommandHandler\FindPages\FindPagesCommand;
-use CmsBundle\Application\Page\CommandHandler\FindPages\FindPagesCommandHandler;
-use CmsBundle\Application\Page\CommandHandler\GetPage\GetPageCommand;
-use CmsBundle\Application\Page\CommandHandler\GetPage\GetPageCommandHandler;
-use CmsBundle\Domain\Model\Page\Entity\Page;
+use CmsBundle\Cms\Application\Model\Common\Request\QueryParams;
+use CmsBundle\Cms\Application\Model\Page\CommandHandler\CreatePage\CreatePageCommand;
+use CmsBundle\Cms\Application\Model\Page\CommandHandler\CreatePage\CreatePageCommandHandler;
+use CmsBundle\Cms\Application\Model\Page\CommandHandler\FindPages\FindPagesCommand;
+use CmsBundle\Cms\Application\Model\Page\CommandHandler\FindPages\FindPagesCommandHandler;
+use CmsBundle\Cms\Application\Model\Page\CommandHandler\GetPage\GetPageCommand;
+use CmsBundle\Cms\Application\Model\Page\CommandHandler\GetPage\GetPageCommandHandler;
+use CmsBundle\Cms\Domain\Model\Page\Entity\Page;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
@@ -36,12 +36,12 @@ class PageController extends Controller
      * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param string $id
-     * @return \CmsBundle\Application\Page\CommandHandler\GetPage\GetPageCommandResult
+     * @return \CmsBundle\Cms\Application\Model\Page\CommandHandler\GetPage\GetPageCommandResult
      */
     public function getAction(string $id)
     {
         /** @var GetPageCommandHandler $getPageCommandHandler */
-        $getPageCommandHandler = $this->get('cms.application.page.get_page.get_page_command_handler');
+        $getPageCommandHandler = $this->get('cms.application.model.page.get_page.get_page_command_handler');
 
         return $getPageCommandHandler->handle(GetPageCommand::instance($id));
     }
@@ -66,7 +66,7 @@ class PageController extends Controller
     public function cgetAction(ParamFetcher $fetcher)
     {
         /** @var FindPagesCommandHandler $findPageCommandHandler */
-        $findPageCommandHandler = $this->get('cms.application.page.find_page.find_page_command_handler');
+        $findPageCommandHandler = $this->get('cms.application.model.page.find_page.find_page_command_handler');
 
         $paramFetcher = new QueryParams($fetcher->all());
 
@@ -87,12 +87,12 @@ class PageController extends Controller
      *
      * @param Request $request
      *
-     * @return \CmsBundle\Application\Page\CommandHandler\CreatePage\CreatePageCommandResult
+     * @return \CmsBundle\Cms\Application\Model\Page\CommandHandler\CreatePage\CreatePageCommandResult
      */
     public function postAction(Request $request)
     {
         /** @var CreatePageCommandHandler $createPageCommandHandler */
-        $createPageCommandHandler = $this->get('cms.application.page.create_page.create_page_command_handler');
+        $createPageCommandHandler = $this->get('cms.application.model.page.create_page.create_page_command_handler');
 
         $command = CreatePageCommand::instance(
             $request->request->get('user_id'),

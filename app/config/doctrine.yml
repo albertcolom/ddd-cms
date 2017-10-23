@@ -13,9 +13,9 @@ doctrine:
             json: string
 
         types:
-            siteIdentity: CmsBundle\Infrastructure\Model\Site\ValueObject\DoctrineSiteIdentityType
-            userIdentity: CmsBundle\Infrastructure\Model\User\ValueObject\DoctrineUserIdentityType
-            pageIdentity: CmsBundle\Infrastructure\Model\Page\ValueObject\DoctrinePageIdentityType
+            siteIdentity: CmsBundle\Cms\Infrastructure\Model\Site\ValueObject\DoctrineSiteIdentityType
+            userIdentity: CmsBundle\Cms\Infrastructure\Model\User\ValueObject\DoctrineUserIdentityType
+            pageIdentity: CmsBundle\Cms\Infrastructure\Model\Page\ValueObject\DoctrinePageIdentityType
 
     orm:
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -23,5 +23,5 @@ doctrine:
         mappings:
             dddCmdBundle:
                 type: yml
-                dir: "%kernel.root_dir%/../src/CmsBundle/Infrastructure/Persistence/Doctrine/Mapping"
-                prefix: CmsBundle
+                dir: "%kernel.root_dir%/../src/CmsBundle/Cms/Infrastructure/Persistence/Doctrine/Mapping"
+                prefix: CmsBundle\Cms

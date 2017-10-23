@@ -13,10 +13,13 @@ class CmsExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new Loader\YamlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config/services')
+        );
 
         $finder = Finder::create();
-        $finder->files()->in(__DIR__ . '/../Resources/config')->name('*.yml');
+        $finder->files()->in(__DIR__ . '/../Resources/config/services')->name('*.yml');
 
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {

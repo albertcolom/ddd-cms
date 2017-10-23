@@ -2,10 +2,10 @@
 
 namespace CmsApiRestBundle\Controller\User;
 
-use CmsBundle\Application\User\CommandHandler\CreateUser\CreateUserCommand;
-use CmsBundle\Application\User\CommandHandler\CreateUser\CreateUserCommandHandler;
-use CmsBundle\Application\User\CommandHandler\GetUser\GetUserCommand;
-use CmsBundle\Application\User\CommandHandler\GetUser\GetUserCommandHandler;
+use CmsBundle\Cms\Application\Model\User\CommandHandler\CreateUser\CreateUserCommand;
+use CmsBundle\Cms\Application\Model\User\CommandHandler\CreateUser\CreateUserCommandHandler;
+use CmsBundle\Cms\Application\Model\User\CommandHandler\GetUser\GetUserCommand;
+use CmsBundle\Cms\Application\Model\User\CommandHandler\GetUser\GetUserCommandHandler;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -30,12 +30,12 @@ class UserController extends Controller
      * @View(statusCode=200, serializerGroups={"Default"})
      *
      * @param string $id
-     * @return \CmsBundle\Application\User\CommandHandler\GetUser\GetUserCommandResult
+     * @return \CmsBundle\Cms\Application\Model\User\CommandHandler\GetUser\GetUserCommandResult
      */
     public function getAction(string $id)
     {
         /** @var GetUserCommandHandler $getUserCommandHandler */
-        $getUserCommandHandler = $this->get('cms.application.user.get_user.get_user_command_handler');
+        $getUserCommandHandler = $this->get('cms.application.model.user.get_user.get_user_command_handler');
 
         return $getUserCommandHandler->handle(GetUserCommand::instance($id));
     }
@@ -53,12 +53,12 @@ class UserController extends Controller
      *
      * @param Request $request
      *
-     * @return \CmsBundle\Application\User\CommandHandler\CreateUser\CreateUserCommandResult
+     * @return \CmsBundle\Cms\Application\Model\User\CommandHandler\CreateUser\CreateUserCommandResult
      */
     public function postAction(Request $request)
     {
         /** @var CreateUserCommandHandler $createUserCommandHandler */
-        $createUserCommandHandler = $this->get('cms.application.user.create_user.create_user_command_handler');
+        $createUserCommandHandler = $this->get('cms.application.model.user.create_user.create_user_command_handler');
 
         $command = CreateUserCommand::instance(
             $request->request->get('name'),

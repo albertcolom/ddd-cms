@@ -1,0 +1,23 @@
+services:
+
+    cms.repository:
+        abstract: true
+        factory: ['@doctrine.orm.entity_manager', 'getRepository']
+
+    cms.infrastructure.model.site.repository.doctrine_site_repository:
+        class: CmsBundle\Cms\Infrastructure\Model\Site\Repository\DoctrineSiteRepository
+        parent: cms.repository
+        arguments:
+          - CmsBundle\Cms\Domain\Model\Site\Entity\Site
+
+    cms.infrastructure.model.user.repository.doctrine_user_repository:
+        class: CmsBundle\Cms\Infrastructure\Model\User\Repository\DoctrineUserRepository
+        parent: cms.repository
+        arguments:
+          - CmsBundle\Cms\Domain\Model\User\Entity\User
+
+    cms.infrastructure.model.page.repository.doctrine_page_repository:
+        class: CmsBundle\Cms\Infrastructure\Model\Page\Repository\DoctrinePageRepository
+        parent: cms.repository
+        arguments:
+          - CmsBundle\Cms\Domain\Model\Page\Entity\Page
