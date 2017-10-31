@@ -1,0 +1,3 @@
+CmsBundle\Cms\Domain\Model\Page\Entity\Page:
+    page{1..100}:
+        __factory: { instance: ['<(CmsBundle\Cms\Domain\Model\Page\ValueObject\PageIdentity::instance())>', '@user*', '@site*','<text()>'] }

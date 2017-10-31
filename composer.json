@@ -32,6 +32,8 @@
         "webmozart/assert": "^1.2"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^2.4",
+        "nelmio/alice": "^3.1",
         "phpunit/phpunit": "^6",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
@@ -56,7 +58,8 @@
         "platform": {
             "php": "7.0"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "bin-dir": "bin"
     },
     "extra": {
         "symfony-app-dir": "app",
