@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="DDD-CMS" default="build">
+
+    <property name="sourcedir" value="${basedir}/src"/>
+    <property name="symfony-console" value="${basedir}/bin/console"/>
+    <property name="composer" value="${basedir}/composer.phar"/>
+    <property name="phpunit" value="${basedir}/bin/phpunit"/>
+    <property name="phpunit-config" value="${basedir}/phpunit.xml.dist"/>
+
+    <target name="composer-check">
+        <available file="${composer}" property="composer.exist"/>
+    </target>
+
+    <target name="composer-download" depends="composer-check" unless="composer.exist">
+        <property name="composer.noselfupdate" value="true"/>
+        <get src="https://getcomposer.org/composer.phar" dest="${composer}" />
+    </target>
+
+    <target name="composer-self-update" depends="composer-download">
+        <exec executable="php" failonerror="false">
+            <arg line="${composer} self-update --quiet" />
+        </exec>
+    </target>
+
+    <target name="composer-install" depends="composer-self-update">
+        <exec executable="php" failonerror="false">
+            <arg line="${composer} install --prefer-dist --no-interaction" />
+        </exec>
+    </target>
+
+    <target name="mysql-check">
+        <waitfor>
+            <socket server="mysql" port="3306"/>
+        </waitfor>
+    </target>
+
+    <target name="doctrine-database-drop">
+        <echo message="Dropping database" />
+        <exec executable="php" failonerror="true">
+            <arg line="${symfony-console} doctrine:database:drop --force --if-exists" />
+        </exec>
+    </target>
+
+    <target name="doctrine-database-create" depends="doctrine-database-drop">
+        <echo message="Create database" />
+        <exec executable="php" failonerror="true">
+            <arg line="${symfony-console} doctrine:database:create" />
+        </exec>
+    </target>
+
+    <target name="doctrine-schema-update" depends="doctrine-database-create">
+        <echo message="Schema update" />
+        <exec executable="php" failonerror="true">
+            <arg line="${symfony-console} doctrine:schema:update --force" />
+        </exec>
+    </target>
+
+    <target name="doctrine-fixtures-load" depends="doctrine-schema-update">
+        <echo message="Schema update" />
+        <exec executable="php" failonerror="true">
+            <arg line="${symfony-console}  doctrine:fixtures:load" />
+        </exec>
+    </target>
+
+    <target name="cache-warmup-test">
+        <exec executable="php" failonerror="true">
+            <arg line="${symfony-console} cache:warmup --env=test" />
+        </exec>
+    </target>
+
+    <target name="cache-warmup-dev">
+        <exec executable="php" failonerror="true">
+            <arg line="${symfony-console} cache:warmup --env=test" />
+        </exec>
+    </target>
+
+    <target name="phpunit">
+        <exec executable="${phpunit}" failonerror="true">
+            <arg value="-c"/>
+            <arg path="${phpunit-config}"/>
+        </exec>
+    </target>
+
+    <target name="build" depends="composer, database, cache" description="Prepare project dependencies"/>
+    <target name="composer" depends="composer-check, composer-download, composer-self-update, composer-install" description="Composer"/>
+    <target name="cache" depends="cache-warmup-test, cache-warmup-dev" description="Clear cache warmup"/>
+    <target name="database" depends="mysql-check, doctrine-database-drop, doctrine-database-create, doctrine-schema-update, doctrine-fixtures-load" description="Database"/>
+    <target name="testing" depends="phpunit" description="Testing"/>
+
+</project>
