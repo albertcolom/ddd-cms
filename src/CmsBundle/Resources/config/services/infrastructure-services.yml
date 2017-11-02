@@ -1,0 +1,6 @@
+services:
+
+    cms.infrastructure.services.rabbitmq.event.publisher:
+        class: CmsBundle\Cms\Infrastructure\Services\RabbitMQ\Publisher
+        arguments:
+          - '@old_sound_rabbit_mq.events_producer'
