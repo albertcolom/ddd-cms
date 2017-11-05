@@ -21,6 +21,7 @@ RUN apk --update add \
         php7-soap \
         php7-zlib \
         php7-xml \
+        php7-simplexml \
         php7-dom \
         php7-ctype \
         php7-gd \
