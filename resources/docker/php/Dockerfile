@@ -1,9 +1,7 @@
 FROM alpine:edge
 
-RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk --update add \
-        bash \
-        curl \
+RUN apk --update add \
+        apache-ant \
         php7 \
         php7-fpm \
         php7-mcrypt \
@@ -40,8 +38,6 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositor
 COPY config/php.ini /etc/php7/php.ini
 COPY config/php-fpm.conf /etc/php7/php-fpm.conf
 COPY config/xdebug.ini /etc/php7/conf.d/xdebug.ini
-
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 EXPOSE 9000
 
