@@ -1,11 +1,11 @@
 page:
     type: rest
-    resource: "@CmsApiRestBundle/Controller/Page/PageController.php"
+    resource: cms.controller.page
 
 user:
     type: rest
-    resource: "@CmsApiRestBundle/Controller/User/UserController.php"
+    resource: cms.controller.user
 
 site:
     type: rest
-    resource: "@CmsApiRestBundle/Controller/Site/SiteController.php"
+    resource: cms.controller.site

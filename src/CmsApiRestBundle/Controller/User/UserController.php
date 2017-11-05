@@ -6,6 +6,7 @@ use CmsBundle\Cms\Application\Model\User\CommandHandler\CreateUser\CreateUserCom
 use CmsBundle\Cms\Application\Model\User\CommandHandler\CreateUser\CreateUserCommandHandler;
 use CmsBundle\Cms\Application\Model\User\CommandHandler\GetUser\GetUserCommand;
 use CmsBundle\Cms\Application\Model\User\CommandHandler\GetUser\GetUserCommandHandler;
+use CmsBundle\Cms\Infrastructure\Services\Bus\CommandBus;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -21,6 +22,18 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class UserController extends Controller
 {
+    /** @var CommandBus  */
+    private $commandBus;
+
+    /**
+     * UserController constructor.
+     * @param CommandBus $commandBus
+     */
+    public function __construct(CommandBus $commandBus)
+    {
+        $this->commandBus = $commandBus;
+    }
+
     /**
      * @ApiDoc(
      *  resource=true,

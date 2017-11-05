@@ -6,6 +6,7 @@ use CmsBundle\Cms\Application\Model\Site\CommandHandler\CreateSite\CreateSiteCom
 use CmsBundle\Cms\Application\Model\Site\CommandHandler\CreateSite\CreateSiteCommandHandler;
 use CmsBundle\Cms\Application\Model\Site\CommandHandler\GetSite\GetSiteCommand;
 use CmsBundle\Cms\Application\Model\Site\CommandHandler\GetSite\GetSiteCommandHandler;
+use CmsBundle\Cms\Infrastructure\Services\Bus\CommandBus;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -21,6 +22,18 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class SiteController extends Controller
 {
+    /** @var CommandBus  */
+    private $commandBus;
+
+    /**
+     * SiteController constructor.
+     * @param CommandBus $commandBus
+     */
+    public function __construct(CommandBus $commandBus)
+    {
+        $this->commandBus = $commandBus;
+    }
+
     /**
      * @ApiDoc(
      *  resource=true,
@@ -58,7 +71,7 @@ class SiteController extends Controller
     public function postAction(Request $request)
     {
         /** @var CreateSiteCommandHandler $createSiteCommandHandler */
-        $createSiteCommandHandler = $this->get('cms.application.model.site.create_site.create_site_command_handler');
+        $createSiteCommandHandler = $this->get('cms.application.model.model.site.create_site.create_site_command_handler');
 
         $command = CreateSiteCommand::instance(
             $request->request->get('name'),

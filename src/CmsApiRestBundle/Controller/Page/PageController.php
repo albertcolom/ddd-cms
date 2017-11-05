@@ -10,6 +10,7 @@ use CmsBundle\Cms\Application\Model\Page\CommandHandler\FindPages\FindPagesComma
 use CmsBundle\Cms\Application\Model\Page\CommandHandler\GetPage\GetPageCommand;
 use CmsBundle\Cms\Application\Model\Page\CommandHandler\GetPage\GetPageCommandHandler;
 use CmsBundle\Cms\Domain\Model\Page\Entity\Page;
+use CmsBundle\Cms\Infrastructure\Services\Bus\CommandBus;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
@@ -27,6 +28,18 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PageController extends Controller
 {
+    /** @var CommandBus  */
+    private $commandBus;
+
+    /**
+     * PageController constructor.
+     * @param CommandBus $commandBus
+     */
+    public function __construct(CommandBus $commandBus)
+    {
+        $this->commandBus = $commandBus;
+    }
+
     /**
      * @ApiDoc(
      *  resource=true,

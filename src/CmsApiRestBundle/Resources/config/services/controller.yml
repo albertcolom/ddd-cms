@@ -1,0 +1,16 @@
+services:
+
+    cms.controller.page:
+        class: CmsApiRestBundle\Controller\Page\PageController
+        arguments:
+          - '@cms.infrastructure.services.bus.event.commandbus'
+
+    cms.controller.site:
+        class: CmsApiRestBundle\Controller\Site\SiteController
+        arguments:
+          - '@cms.infrastructure.services.bus.event.commandbus'
+
+    cms.controller.user:
+        class: CmsApiRestBundle\Controller\User\UserController
+        arguments:
+          - '@cms.infrastructure.services.bus.event.commandbus'
