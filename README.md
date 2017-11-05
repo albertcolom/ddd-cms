@@ -2,7 +2,7 @@ Simple CMS with DDD
 ==============
 
 ### Requirements
-- [Apache ant](http://ant.apache.org/)
+- [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
 ### Examples in this repo
@@ -30,11 +30,17 @@ $ docker-compose up -d
 
 Build environment with Apache Ant
 ```sh
-$ ant build
+$ docker-compose exec php ant build
+
+```
+   
+### Symfony console
+```sh
+$ docker-compose exec php bin/console
 
 ```
 
 ### Test
 ```sh
-$ bin/phpunit
+$ docker-compose exec php bin/phpunit
 ```
