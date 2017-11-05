@@ -1,6 +1,7 @@
 FROM alpine:edge
 
 RUN apk --update add \
+        openjdk8 \
         apache-ant \
         php7 \
         php7-fpm \
