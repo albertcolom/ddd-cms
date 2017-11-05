@@ -4,3 +4,8 @@ services:
         class: CmsBundle\Cms\Infrastructure\Services\RabbitMQ\Publisher
         arguments:
           - '@old_sound_rabbit_mq.events_producer'
+
+    cms.infrastructure.services.bus.event.commandbus:
+        class: CmsBundle\Cms\Infrastructure\Services\Bus\CommandBus
+        arguments:
+          - '@tactician.commandbus'
