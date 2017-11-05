@@ -20,7 +20,8 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new CmsBundle\CmsBundle(),
             new CmsApiRestBundle\CmsApiRestBundle(),
-            new OldSound\RabbitMqBundle\OldSoundRabbitMqBundle()
+            new OldSound\RabbitMqBundle\OldSoundRabbitMqBundle(),
+            new League\Tactician\Bundle\TacticianBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
