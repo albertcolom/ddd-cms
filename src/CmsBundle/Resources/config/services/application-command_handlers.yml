@@ -4,31 +4,43 @@ services:
         class: CmsBundle\Cms\Application\Model\Site\CommandHandler\CreateSite\CreateSiteCommandHandler
         arguments:
             - '@cms.infrastructure.model.site.repository.doctrine_site_repository'
+        tags:
+            - { name: tactician.handler, command: CmsBundle\Cms\Application\Model\Site\CommandHandler\CreateSite\CreateSiteCommand }
 
     cms.application.model.site.get_site.get_site_command_handler:
         class: CmsBundle\Cms\Application\Model\Site\CommandHandler\GetSite\GetSiteCommandHandler
         arguments:
             - '@cms.infrastructure.model.site.repository.doctrine_site_repository'
+        tags:
+            - { name: tactician.handler, command: CmsBundle\Cms\Application\Model\Site\CommandHandler\GetSite\GetSiteCommand }
 
     cms.application.model.user.get_user.get_user_command_handler:
         class: CmsBundle\Cms\Application\Model\User\CommandHandler\GetUser\GetUserCommandHandler
         arguments:
             - '@cms.infrastructure.model.user.repository.doctrine_user_repository'
+        tags:
+            - { name: tactician.handler, command: CmsBundle\Cms\Application\Model\User\CommandHandler\GetUser\GetUserCommand }
 
     cms.application.model.user.create_user.create_user_command_handler:
         class: CmsBundle\Cms\Application\Model\User\CommandHandler\CreateUser\CreateUserCommandHandler
         arguments:
             - '@cms.infrastructure.model.user.repository.doctrine_user_repository'
+        tags:
+            - { name: tactician.handler, command: CmsBundle\Cms\Application\Model\User\CommandHandler\CreateUser\CreateUserCommand }
 
     cms.application.model.page.get_page.get_page_command_handler:
         class: CmsBundle\Cms\Application\Model\Page\CommandHandler\GetPage\GetPageCommandHandler
         arguments:
             - '@cms.infrastructure.model.page.repository.doctrine_page_repository'
+        tags:
+            - { name: tactician.handler, command: CmsBundle\Cms\Application\Model\Page\CommandHandler\GetPage\GetPageCommand }
 
     cms.application.model.page.find_page.find_page_command_handler:
         class: CmsBundle\Cms\Application\Model\Page\CommandHandler\FindPages\FindPagesCommandHandler
         arguments:
             - '@cms.infrastructure.model.page.repository.doctrine_page_repository'
+        tags:
+            - { name: tactician.handler, command: CmsBundle\Cms\Application\Model\Page\CommandHandler\FindPages\FindPagesCommand }
 
     cms.application.model.page.create_page.create_page_command_handler:
         class: CmsBundle\Cms\Application\Model\Page\CommandHandler\CreatePage\CreatePageCommandHandler
@@ -36,3 +48,5 @@ services:
             - '@cms.infrastructure.model.user.repository.doctrine_user_repository'
             - '@cms.infrastructure.model.site.repository.doctrine_site_repository'
             - '@cms.infrastructure.model.page.repository.doctrine_page_repository'
+        tags:
+            - { name: tactician.handler, command: CmsBundle\Cms\Application\Model\Page\CommandHandler\CreatePage\CreatePageCommand }
