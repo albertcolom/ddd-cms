@@ -4,11 +4,8 @@ namespace CmsApiRestBundle\Controller\Page;
 
 use CmsBundle\Cms\Application\Model\Common\Request\QueryParams;
 use CmsBundle\Cms\Application\Model\Page\CommandHandler\CreatePage\CreatePageCommand;
-use CmsBundle\Cms\Application\Model\Page\CommandHandler\CreatePage\CreatePageCommandHandler;
 use CmsBundle\Cms\Application\Model\Page\CommandHandler\FindPages\FindPagesCommand;
-use CmsBundle\Cms\Application\Model\Page\CommandHandler\FindPages\FindPagesCommandHandler;
 use CmsBundle\Cms\Application\Model\Page\CommandHandler\GetPage\GetPageCommand;
-use CmsBundle\Cms\Application\Model\Page\CommandHandler\GetPage\GetPageCommandHandler;
 use CmsBundle\Cms\Domain\Model\Page\Entity\Page;
 use CmsBundle\Cms\Infrastructure\Services\Bus\CommandBus;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
@@ -53,10 +50,7 @@ class PageController extends Controller
      */
     public function getAction(string $id)
     {
-        /** @var GetPageCommandHandler $getPageCommandHandler */
-        $getPageCommandHandler = $this->get('cms.application.model.page.get_page.get_page_command_handler');
-
-        return $getPageCommandHandler->handle(GetPageCommand::instance($id));
+        return $this->commandBus->handle(GetPageCommand::instance($id));
     }
 
     /**
@@ -78,12 +72,9 @@ class PageController extends Controller
      */
     public function cgetAction(ParamFetcher $fetcher)
     {
-        /** @var FindPagesCommandHandler $findPageCommandHandler */
-        $findPageCommandHandler = $this->get('cms.application.model.page.find_page.find_page_command_handler');
-
         $paramFetcher = new QueryParams($fetcher->all());
 
-        return $findPageCommandHandler->handle(FindPagesCommand::instance($paramFetcher));
+        return $this->commandBus->handle(FindPagesCommand::instance($paramFetcher));
     }
 
     /**
@@ -104,15 +95,12 @@ class PageController extends Controller
      */
     public function postAction(Request $request)
     {
-        /** @var CreatePageCommandHandler $createPageCommandHandler */
-        $createPageCommandHandler = $this->get('cms.application.model.page.create_page.create_page_command_handler');
-
         $command = CreatePageCommand::instance(
             $request->request->get('user_id'),
             $request->request->get('site_id'),
             $request->request->get('content')
         );
 
-        return $createPageCommandHandler->handle($command);
+        return $this->commandBus->handle($command);
     }
 }

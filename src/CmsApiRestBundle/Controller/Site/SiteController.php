@@ -3,9 +3,7 @@
 namespace CmsApiRestBundle\Controller\Site;
 
 use CmsBundle\Cms\Application\Model\Site\CommandHandler\CreateSite\CreateSiteCommand;
-use CmsBundle\Cms\Application\Model\Site\CommandHandler\CreateSite\CreateSiteCommandHandler;
 use CmsBundle\Cms\Application\Model\Site\CommandHandler\GetSite\GetSiteCommand;
-use CmsBundle\Cms\Application\Model\Site\CommandHandler\GetSite\GetSiteCommandHandler;
 use CmsBundle\Cms\Infrastructure\Services\Bus\CommandBus;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
@@ -47,10 +45,7 @@ class SiteController extends Controller
      */
     public function getAction(string $id)
     {
-        /** @var GetSiteCommandHandler $getSiteCommandHandler */
-        $getSiteCommandHandler = $this->get('cms.application.model.site.get_site.get_site_command_handler');
-
-        return $getSiteCommandHandler->handle(GetSiteCommand::instance($id));
+        return $this->commandBus->handle(GetSiteCommand::instance($id));
     }
 
     /**
@@ -70,14 +65,11 @@ class SiteController extends Controller
      */
     public function postAction(Request $request)
     {
-        /** @var CreateSiteCommandHandler $createSiteCommandHandler */
-        $createSiteCommandHandler = $this->get('cms.application.model.model.site.create_site.create_site_command_handler');
-
         $command = CreateSiteCommand::instance(
             $request->request->get('name'),
             $request->request->get('description')
         );
 
-        return $createSiteCommandHandler->handle($command);
+        return $this->commandBus->handle($command);
     }
 }

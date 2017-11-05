@@ -3,9 +3,7 @@
 namespace CmsApiRestBundle\Controller\User;
 
 use CmsBundle\Cms\Application\Model\User\CommandHandler\CreateUser\CreateUserCommand;
-use CmsBundle\Cms\Application\Model\User\CommandHandler\CreateUser\CreateUserCommandHandler;
 use CmsBundle\Cms\Application\Model\User\CommandHandler\GetUser\GetUserCommand;
-use CmsBundle\Cms\Application\Model\User\CommandHandler\GetUser\GetUserCommandHandler;
 use CmsBundle\Cms\Infrastructure\Services\Bus\CommandBus;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
@@ -47,10 +45,7 @@ class UserController extends Controller
      */
     public function getAction(string $id)
     {
-        /** @var GetUserCommandHandler $getUserCommandHandler */
-        $getUserCommandHandler = $this->get('cms.application.model.user.get_user.get_user_command_handler');
-
-        return $getUserCommandHandler->handle(GetUserCommand::instance($id));
+        return $this->commandBus->handle(GetUserCommand::instance($id));
     }
 
     /**
@@ -70,14 +65,11 @@ class UserController extends Controller
      */
     public function postAction(Request $request)
     {
-        /** @var CreateUserCommandHandler $createUserCommandHandler */
-        $createUserCommandHandler = $this->get('cms.application.model.user.create_user.create_user_command_handler');
-
         $command = CreateUserCommand::instance(
             $request->request->get('name'),
             $request->request->get('email')
         );
 
-        return $createUserCommandHandler->handle($command);
+        return $this->commandBus->handle($command);
     }
 }
