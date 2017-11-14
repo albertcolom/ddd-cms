@@ -34,7 +34,6 @@ RUN apk --update add \
         php7-tokenizer \
         php7-xdebug \
         pdftk \
-    # Clean up
     && rm -rf /var/cache/apk/*
 
 COPY config/php.ini /etc/php7/php.ini
