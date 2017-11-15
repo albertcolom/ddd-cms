@@ -1,19 +1,17 @@
-sudo: required
+sudo: true
 
-language: generic
+dist: trusty
 
-services:
-  - docker
-
-cache:
-  directories:
-    - $HOME/.composer/cache/files
-
-before_install:
-  - docker build -t php7 resources/docker/php
-  - docker run -d --name dev_php7 -v $(pwd):/app -it php7
-  - docker ps
-  - docker exec -i dev_php7 ant composer
-
-script:
-  - docker exec -i dev_php7 ant testing
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker build -t php7 resources/docker/php
+      - docker images
+      - docker tag travis-ci-build $DOCKER_USERNAME/travis-ci-build
+      - docker push $DOCKER_USERNAME/travis-ci-build
+    - stage: test
+      script: docker run --rm $DOCKER_USERNAME/travis-ci-build -v $(pwd):/app ant phpunit
+      script: docker run --rm $DOCKER_USERNAME/travis-ci-build -v $(pwd):/app ant phpmd
+      script: docker run --rm $DOCKER_USERNAME/travis-ci-build -v $(pwd):/app ant psr2
