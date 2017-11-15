@@ -2,6 +2,8 @@ sudo: true
 
 dist: trusty
 
+language: generic
+
 jobs:
   include:
     - stage: build docker image
@@ -11,6 +13,6 @@ jobs:
       - docker images
       - docker push $DOCKER_USERNAME/travis-ci-build
     - stage: test
-      script: docker run --rm $DOCKER_USERNAME/travis-ci-build -v $(pwd):/app ant phpunit
-      script: docker run --rm $DOCKER_USERNAME/travis-ci-build -v $(pwd):/app ant phpmd
-    - script: docker run --rm $DOCKER_USERNAME/travis-ci-build -v $(pwd):/app ant psr2
+      - script: docker run --rm -v $(pwd):/app albertcolom/travis-ci-build ant phpunit
+      - script: docker run --rm -v $(pwd):/app albertcolom/travis-ci-build ant phpmd
+      - script: docker run --rm -v $(pwd):/app albertcolom/travis-ci-build ant psr2
