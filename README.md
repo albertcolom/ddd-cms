@@ -61,6 +61,21 @@ $ docker-compose exec php bin/console
 - **Kibana:** ```http://localhost:5601 or http://ddd.cms.dev:5601```
 
 ### Test
+PHPunit
 ```sh
 $ docker-compose exec php bin/phpunit
+or
+$ docker-compose exec php ant phpunit
+```
+
+PHP Mess Detector: PHPMD
+```sh
+$ docker-compose exec php bin/phpmd src text ruleset.xml
+or
+$ docker-compose exec php ant phpmd
+```
+
+Execute all test suite (PHPunit, PHPMD)
+```sh
+$ docker-compose exec php ant testing
 ```

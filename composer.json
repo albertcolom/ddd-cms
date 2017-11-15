@@ -38,7 +38,8 @@
         "nelmio/alice": "^3.1",
         "phpunit/phpunit": "^6",
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^3.0",
+        "phpmd/phpmd": "^2.6"
     },
     "scripts": {
         "symfony-scripts": [
