@@ -4,6 +4,10 @@ dist: trusty
 
 language: generic
 
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
 jobs:
   include:
     - stage: build docker image
