@@ -1,0 +1,19 @@
+sudo: required
+
+language: php
+
+services:
+  - docker
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+before_install:
+  - docker build -t php7 resources/docker/php
+  - docker run --name dev_php7 -v $(pwd):/app -it php7
+  - docker ps
+  - docker exec -i dev_php7 ant composer
+
+script:
+  - docker exec -i dev_php7 ant testing
