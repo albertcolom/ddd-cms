@@ -17,8 +17,8 @@ jobs:
       - docker images
       - docker push $DOCKER_USERNAME/travis-ci-build
     - stage: test
-      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build php ant phpunit
+      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build ant phpunit
     - stage: test
-      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build bin/phpmd ant phpmd
+      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build ant phpmd
     - stage: test
-      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build bin/phpcs ant psr2
+      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build  ant psr2
