@@ -20,7 +20,7 @@ class LoadFixtures implements FixtureInterface
 
         $objectSet = $loader->loadFiles($files);
 
-        foreach($objectSet->getObjects() as $object) {
+        foreach ($objectSet->getObjects() as $object) {
             $manager->persist($object);
             $manager->flush();
         }

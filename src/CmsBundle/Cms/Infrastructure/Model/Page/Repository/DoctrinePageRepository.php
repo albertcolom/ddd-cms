@@ -15,7 +15,7 @@ class DoctrinePageRepository extends EntityRepository implements PageRepository
         /** @var Page $page */
         $page = $this->findOneBy(['id' => $pageIdentity]);
 
-        if ($page === null){
+        if ($page === null) {
             throw PageNotFoundException::fromPageId($pageIdentity);
         }
 

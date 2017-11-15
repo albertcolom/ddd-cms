@@ -59,7 +59,10 @@ class PageController extends Controller
      *  description="List page collection",
      * )
      *
-     * @QueryParam(name="filter", description="Order fields in Json Format ie. filter={""user"":[""user_id"", ""user_id""], ""status"":1}")
+     * @QueryParam(
+     *     name="filter",
+     *     description="Order fields in Json Format ie. filter={""user"":[""user_id"", ""user_id""], ""status"":1}"
+     * )
      * @QueryParam(name="order", description="Filter by fields in Json Format ie. order={""createdOn"":""DESC""}")
      * @QueryParam(name="limit", requirements="\d+", default="250", description="Items per page")
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page number")
