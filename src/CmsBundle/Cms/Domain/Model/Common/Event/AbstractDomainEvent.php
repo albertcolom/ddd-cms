@@ -2,7 +2,7 @@
 
 namespace CmsBundle\Cms\Domain\Model\Common\Event;
 
-abstract class AbstractEvent implements Event
+abstract class AbstractDomainEvent implements DomainEvent
 {
     /** @var DomainEventIdentity */
     private $id;
