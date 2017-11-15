@@ -16,11 +16,9 @@ jobs:
       - docker build -t $DOCKER_USERNAME/travis-ci-build resources/docker/php
       - docker images
       - docker push $DOCKER_USERNAME/travis-ci-build
-    - stage: composer install
-      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build ant composer
     - stage: test
-      script: docker run --rm -v $(pwd):/app albertcolom/travis-ci-build bin/phpunit
+      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build php ant phpunit
     - stage: test
-      script: docker run --rm -v $(pwd):/app albertcolom/travis-ci-build bin/phpmd src text ruleset.xml
+      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build bin/phpmd ant phpmd
     - stage: test
-      script: docker run --rm -v $(pwd):/app albertcolom/travis-ci-build bin/phpcs --standard=PSR2 src
+      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build bin/phpcs ant psr2
