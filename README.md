@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/albertcolom/ddd-cms.svg?branch=master)](https://travis-ci.org/albertcolom/ddd-cms)
+
 Simple CMS with DDD
 ==============
 
