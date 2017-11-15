@@ -78,14 +78,14 @@
         </exec>
     </target>
 
-    <target name="phpunit">
+    <target name="phpunit" depends="composer">
         <exec executable="${phpunit}" failonerror="true">
             <arg value="-c"/>
             <arg path="${phpunit-config}"/>
         </exec>
     </target>
 
-    <target name="phpmd">
+    <target name="phpmd" depends="composer">
         <exec executable="${phpmd}" failonerror="true">
             <arg value="src"/>
             <arg value="text"/>
@@ -93,7 +93,7 @@
         </exec>
     </target>
 
-    <target name="psr2">
+    <target name="psr2" depends="composer">
         <exec executable="${phpcs}" failonerror="true">
             <arg value="--standard=PSR2"/>
             <arg value="src"/>
