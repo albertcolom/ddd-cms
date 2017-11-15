@@ -9,6 +9,7 @@
     <property name="phpunit-config" value="${basedir}/phpunit.xml.dist"/>
     <property name="phpmd" value="${basedir}/bin/phpmd"/>
     <property name="phpmd-config" value="${basedir}/ruleset.xml"/>
+    <property name="phpcs" value="${basedir}/bin/phpcs"/>
 
     <target name="composer-check">
         <available file="${composer}" property="composer.exist"/>
@@ -92,10 +93,17 @@
         </exec>
     </target>
 
+    <target name="psr2">
+        <exec executable="${phpcs}" failonerror="true">
+            <arg value="--standard=PSR2"/>
+            <arg value="src"/>
+        </exec>
+    </target>
+
     <target name="build" depends="composer, database, cache" description="Prepare project dependencies"/>
     <target name="composer" depends="composer-check, composer-download, composer-self-update, composer-install" description="Composer"/>
     <target name="cache" depends="cache-warmup-test, cache-warmup-dev" description="Clear cache warmup"/>
     <target name="database" depends="mysql-check, doctrine-database-drop, doctrine-database-create, doctrine-schema-update, doctrine-fixtures-load" description="Database"/>
-    <target name="testing" depends="phpunit, phpmd" description="Testing"/>
+    <target name="testing" depends="phpunit, phpmd, psr2" description="Testing"/>
 
 </project>

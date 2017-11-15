@@ -36,10 +36,11 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.4",
         "nelmio/alice": "^3.1",
+        "phpmd/phpmd": "^2.6",
         "phpunit/phpunit": "^6",
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0",
-        "phpmd/phpmd": "^2.6"
+        "squizlabs/php_codesniffer": "^3.1",
+        "symfony/phpunit-bridge": "^3.0"
     },
     "scripts": {
         "symfony-scripts": [

@@ -75,7 +75,14 @@ or
 $ docker-compose exec php ant phpmd
 ```
 
-Execute all test suite (PHPunit, PHPMD)
+CodeSniffer PSR-2
+```sh
+$ docker-compose exec php bin/phpcs --standard=PSR2 src
+or
+$ docker-compose exec php ant psr2
+```
+
+Execute all test suite (PHPunit, PHPMD, PSR-2)
 ```sh
 $ docker-compose exec php ant testing
 ```
