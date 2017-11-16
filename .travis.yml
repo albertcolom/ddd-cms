@@ -13,10 +13,8 @@ jobs:
       script:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       - docker build -t $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE -f resources/docker/build/php/Dockerfile .
-      - docker tag travis-ci-build:php-sf-$RELEASE $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE
       - docker push $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE
       - docker build -t $DOCKER_USERNAME/travis-ci-build:nginx-web-$RELEASE -f resources/docker/build/nginx/Dockerfile .
-      - docker tag travis-ci-build:nginx-web-$RELEASE $DOCKER_USERNAME/travis-ci-build:nginx-web-$RELEASE
       - docker push $DOCKER_USERNAME/travis-ci-build:nginx-web-$RELEASE
     - stage: test
       script: docker run --rm $DOCKER_USERNAME/travis-ci-build:$RELEASE ant phpunit
