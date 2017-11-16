@@ -5,6 +5,7 @@ dist: trusty
 language: generic
 
 cache:
+  edge: true
   directories:
     - $HOME/.composer/cache/files
 
