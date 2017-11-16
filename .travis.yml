@@ -9,17 +9,20 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
+env:
+  RELEASE=$TRAVIS_JOB_ID
+
 jobs:
   include:
     - stage: build docker image
       script:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t $DOCKER_USERNAME/travis-ci-build resources/docker/php
+      - docker build -t $DOCKER_USERNAME/travis-ci-build:$RELEASE resources/docker/build/php
       - docker images
-      - docker push $DOCKER_USERNAME/travis-ci-build
+      - docker push $DOCKER_USERNAME/travis-ci-build:$RELEASE
     - stage: test
-      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build ant phpunit
+      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build:$RELEASE ant phpunit
     - stage: test
-      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build ant phpmd
+      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build:$RELEASE ant phpmd
     - stage: test
-      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build  ant psr2
+      script: docker run --rm -v $(pwd):/app $DOCKER_USERNAME/travis-ci-build:$RELEASE  ant psr2
