@@ -4,11 +4,6 @@ dist: trusty
 
 language: generic
 
-cache:
-  edge: true
-  directories:
-    - $HOME/.composer/cache/files
-
 env:
   RELEASE=$TRAVIS_BUILD_NUMBER
 
@@ -17,9 +12,11 @@ jobs:
     - stage: build docker image
       script:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t $DOCKER_USERNAME/travis-ci-build:$RELEASE -f resources/docker/build/php/Dockerfile .
+      - docker build -t $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE -f resources/docker/build/php/Dockerfile .
+      - docker build -t $DOCKER_USERNAME/travis-ci-build:nginx-web-$RELEASE -f resources/docker/build/nginx/Dockerfile .
       - docker images
-      - docker push $DOCKER_USERNAME/travis-ci-build:$RELEASE
+      - docker push $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE
+      - docker push $DOCKER_USERNAME/travis-ci-build:nginx-web-$RELEASE
     - stage: test
       script: docker run --rm $DOCKER_USERNAME/travis-ci-build:$RELEASE ant phpunit
     - stage: test
