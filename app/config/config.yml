@@ -107,14 +107,6 @@ jms_serializer:
                 namespace_prefix: "CmsBundle\\Cms\\Domain\\Model\\Page"
                 path: "@CmsBundle/Cms/Infrastructure/Serializer/Page"
 
-nelmio_alice:
-    locale: 'en_US'
-    seed: 1
-    functions_blacklist:
-        - 'current'
-    loading_limit: 5
-    max_unique_values_retry: 150
-
 old_sound_rabbit_mq:
     connections:
         default:
