@@ -55,12 +55,10 @@ COPY ruleset.xml /app
 WORKDIR /app
 
 RUN rm -rf var/cache/*
-RUN mkdir var/cache/prod
-RUN chmod 777 var/cache/prod
-
 RUN rm -rf var/logs/*
-RUN touch var/logs/prod.log
-RUN chmod 777 -R var/logs
+RUN rm -rf var/sessions/*
+
+RUN chmod -R 777 var/cache var/logs var/sessions
 
 RUN ant composer
 
