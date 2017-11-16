@@ -10,15 +10,9 @@ env:
 jobs:
   include:
     - stage: build docker images
-      script:
-      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE -f resources/docker/build/php/Dockerfile .
-      - docker push $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE
+      script: bash ./resources/docker/build/scripts/build-push-docker-php-sf.sh
     - stage: build docker image
-      script:
-      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t $DOCKER_USERNAME/travis-ci-build:nginx-web-$RELEASE -f resources/docker/build/nginx/Dockerfile .
-      - docker push $DOCKER_USERNAME/travis-ci-build:nginx-web-$RELEASE
+      script: bash ./resources/docker/build/scripts/build-push-docker-nginx-web.sh
     - stage: test
       script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant phpunit
     - stage: test
