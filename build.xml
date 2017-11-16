@@ -78,14 +78,14 @@
         </exec>
     </target>
 
-    <target name="phpunit" depends="composer">
+    <target name="phpunit">
         <exec executable="${phpunit}" failonerror="true">
             <arg value="-c"/>
             <arg path="${phpunit-config}"/>
         </exec>
     </target>
 
-    <target name="phpmd" depends="composer">
+    <target name="phpmd">
         <exec executable="${phpmd}" failonerror="true">
             <arg value="src"/>
             <arg value="text"/>
@@ -93,7 +93,7 @@
         </exec>
     </target>
 
-    <target name="psr2" depends="composer">
+    <target name="psr2">
         <exec executable="${phpcs}" failonerror="true">
             <arg value="--standard=PSR2"/>
             <arg value="src"/>
@@ -104,6 +104,6 @@
     <target name="composer" depends="composer-check, composer-download, composer-self-update, composer-install" description="Composer"/>
     <target name="cache" depends="cache-warmup-test, cache-warmup-dev" description="Clear cache warmup"/>
     <target name="database" depends="mysql-check, doctrine-database-drop, doctrine-database-create, doctrine-schema-update, doctrine-fixtures-load" description="Database"/>
-    <target name="testing" depends="phpunit, phpmd, psr2" description="Testing"/>
+    <target name="testing" depends="composer, phpunit, phpmd, psr2" description="Testing"/>
 
 </project>

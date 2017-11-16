@@ -1,6 +1,7 @@
 FROM alpine:edge
 
 RUN apk --update add \
+        curl \
         openjdk8 \
         apache-ant \
         php7 \
@@ -36,12 +37,25 @@ RUN apk --update add \
         pdftk \
     && rm -rf /var/cache/apk/*
 
-COPY config/php.ini /etc/php7/php.ini
-COPY config/php-fpm.conf /etc/php7/php-fpm.conf
-COPY config/xdebug.ini /etc/php7/conf.d/xdebug.ini
+COPY resources/docker/build/php/config/php.ini /etc/php7/php.ini
+COPY resources/docker/build/php/config/php-fpm.conf /etc/php7/php-fpm.conf
+
+COPY src /app/src
+COPY app /app/app
+COPY bin /app/bin
+COPY var /app/var
+COPY web /app/web
+
+COPY composer.json /app
+COPY composer.lock /app
+COPY build.xml /app
+COPY phpunit.xml.dist /app
+COPY ruleset.xml /app
+
+WORKDIR /app
+
+RUN ant composer
 
 EXPOSE 9000
 
 CMD ["php-fpm7", "-F"]
-
-WORKDIR /app
