@@ -54,6 +54,10 @@ COPY ruleset.xml /app
 
 WORKDIR /app
 
+RUN rm -rf var/cache/*
+RUN mkdir var/cache/prod
+RUN chmod 777 var/cache/prod
+
 RUN rm -rf var/logs/*
 RUN touch var/logs/prod.log
 RUN chmod 777 var/logs/prod.log
