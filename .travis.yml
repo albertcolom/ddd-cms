@@ -9,13 +9,10 @@ env:
 
 jobs:
   include:
-    - stage: build docker images
+    - stage: build
       script: bash ./resources/docker/build/scripts/build-push-docker-php-sf.sh
-    - stage: build docker image
-      script: bash ./resources/docker/build/scripts/build-push-docker-nginx-web.sh
+    - script: bash ./resources/docker/build/scripts/build-push-docker-nginx-web.sh
     - stage: test
       script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant phpunit
-    - stage: test
-      script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant phpmd
-    - stage: test
-      script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant psr2
+    - script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant phpmd
+    - script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant psr2
