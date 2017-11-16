@@ -17,7 +17,7 @@ jobs:
     - stage: build docker image
       script:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t $DOCKER_USERNAME/travis-ci-build:$RELEASE resources/docker/build/php
+      - docker build -t $DOCKER_USERNAME/travis-ci-build:$RELEASE -f resources/docker/build/php/Dockerfile .
       - docker images
       - docker push $DOCKER_USERNAME/travis-ci-build:$RELEASE
     - stage: test
