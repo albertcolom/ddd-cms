@@ -2,7 +2,7 @@ version: '2'
 services:
 
   php:
-    build: resources/docker/php
+    build: resources/docker/dev/php
     container_name: ddd_cms_php7
     volumes:
       - ".:/app"
@@ -10,7 +10,7 @@ services:
       - mysql
 
   nginx:
-    build: resources/docker/nginx
+    build: resources/docker/dev/nginx
     container_name: ddd_cms_nginx
     ports:
       - 80:80
@@ -37,7 +37,7 @@ services:
     container_name: ddd_cms_elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:5.6.4
     volumes:
-      - ./resources/docker/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./resources/docker/dev/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -48,8 +48,8 @@ services:
     container_name: ddd_cms_logstash
     image: docker.elastic.co/logstash/logstash:5.6.4
     volumes:
-      - ./resources/docker/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
-      - ./resources/docker/logstash/pipeline:/usr/share/logstash/pipeline
+      - ./resources/docker/dev/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./resources/docker/dev/logstash/pipeline:/usr/share/logstash/pipeline
       - ./logs/nginx:/usr/share/logs/nginx
     ports:
       - "5000:5000"
@@ -62,7 +62,7 @@ services:
     container_name: ddd_cms_kibana
     image: docker.elastic.co/kibana/kibana:5.6.4
     volumes:
-      - ./resources/docker/kibana/config/:/usr/share/kibana/config
+      - ./resources/docker/dev/kibana/config/:/usr/share/kibana/config
     ports:
       - "5601:5601"
     depends_on:
