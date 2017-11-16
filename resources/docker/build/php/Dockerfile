@@ -39,6 +39,7 @@ RUN apk --update add \
 
 COPY resources/docker/build/php/config/php.ini /etc/php7/php.ini
 COPY resources/docker/build/php/config/php-fpm.conf /etc/php7/php-fpm.conf
+COPY resources/docker/build/php/config/parameters.yml /app/app/config/parameters.yml
 
 COPY src /app/src
 COPY app /app/app
