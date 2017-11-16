@@ -10,7 +10,7 @@ cache:
     - $HOME/.composer/cache/files
 
 env:
-  RELEASE=$TRAVIS_JOB_ID
+  RELEASE=$TRAVIS_BUILD_NUMBER
 
 jobs:
   include:
