@@ -46,6 +46,7 @@ COPY app /app/app
 COPY bin /app/bin
 COPY var /app/var
 COPY web /app/web
+COPY tests /app/tests
 
 COPY composer.json /app
 COPY composer.lock /app
