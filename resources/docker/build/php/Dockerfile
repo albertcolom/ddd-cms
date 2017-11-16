@@ -60,7 +60,7 @@ RUN chmod 777 var/cache/prod
 
 RUN rm -rf var/logs/*
 RUN touch var/logs/prod.log
-RUN chmod 777 var/logs/prod.log
+RUN chmod 777 -R var/logs
 
 RUN ant composer
 
