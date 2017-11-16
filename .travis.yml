@@ -10,15 +10,13 @@ env:
 jobs:
   include:
     - stage: build docker images
-      script:
-      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      docker build -t $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE -f resources/docker/build/php/Dockerfile .
-      docker push $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE
+      script: docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" \
+      docker build -t $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE -f resources/docker/build/php/Dockerfile . \
+      docker push $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE \
     - stage: build docker image
-      script:
-      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      docker build -t $DOCKER_USERNAME/travis-ci-build:nginx-web-$RELEASE -f resources/docker/build/nginx/Dockerfile .
-      docker push $DOCKER_USERNAME/travis-ci-build:nginx-web-$RELEASE
+      script: docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" \
+      docker build -t $DOCKER_USERNAME/travis-ci-build:nginx-web-$RELEASE -f resources/docker/build/nginx/Dockerfile . \
+      docker push $DOCKER_USERNAME/travis-ci-build:nginx-web-$RELEASE \
     - stage: test
       script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant phpunit
     - stage: test
