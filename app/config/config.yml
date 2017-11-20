@@ -92,6 +92,10 @@ fos_rest:
         enabled: true
         codes:
             CmsBundle\Cms\Domain\Model\Common\Exception\NotFoundException: 404
+            InvalidArgumentException: 400
+        messages:
+            InvalidArgumentException: true
+            CmsBundle\Cms\Domain\Model\Common\Exception\NotFoundException: true
 
 jms_serializer:
     metadata:
