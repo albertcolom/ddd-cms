@@ -15,6 +15,7 @@ Simple CMS with DDD
 - [x] **RESTful API**
 - [x] Implement dev fixtures with **alice**
 - [x] Unit testing with **PHPUnit**
+- [x] Test API with ***Behat***
 - [x] CommandHandler
 - [x] Implement **CommandBus** with **tactician**
 - [x] Nginx logs with **ELK** (Elasticsearch + Logstash + Kibana)
@@ -84,7 +85,14 @@ or
 $ docker-compose exec php ant psr2
 ```
 
-Execute all test suite (PHPunit, PHPMD, PSR-2)
+Behat
+```sh
+$ docker-compose exec php bin/behat
+or
+$ docker-compose exec php ant behat
+```
+
+Execute all test suite (PHPunit, PHPMD, PSR-2, Behat)
 ```sh
 $ docker-compose exec php ant testing
 ```

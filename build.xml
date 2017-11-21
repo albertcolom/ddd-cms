@@ -109,6 +109,6 @@
     <target name="composer" depends="composer-check, composer-download, composer-self-update, composer-install" description="Composer"/>
     <target name="cache" depends="cache-warmup-test, cache-warmup-dev" description="Clear cache warmup"/>
     <target name="database" depends="mysql-check, doctrine-database-drop, doctrine-database-create, doctrine-schema-update, doctrine-fixtures-load" description="Database"/>
-    <target name="testing" depends="composer, phpunit, phpmd, psr2" description="Testing"/>
+    <target name="testing" depends="composer, phpunit, phpmd, psr2, behat" description="Testing"/>
 
 </project>
