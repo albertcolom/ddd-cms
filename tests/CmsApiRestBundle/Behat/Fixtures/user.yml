@@ -1,0 +1,7 @@
+CmsBundle\Cms\Domain\Model\User\Entity\User:
+    user_1:
+        __factory: { instance: ['<(CmsBundle\Cms\Domain\Model\User\ValueObject\UserIdentity::instanceFromId("147fbb70-d6df-4cbe-88fc-f6494ec05101"))>', '<username()>', '<email()>'] }
+    user_2:
+        __factory: { instance: ['<(CmsBundle\Cms\Domain\Model\User\ValueObject\UserIdentity::instanceFromId("147fbb70-d6df-4cbe-88fc-f6494ec05102"))>', '<username()>', '<email()>'] }
+    user_3:
+        __factory: { instance: ['<(CmsBundle\Cms\Domain\Model\User\ValueObject\UserIdentity::instanceFromId("147fbb70-d6df-4cbe-88fc-f6494ec05103"))>', '<username()>', '<email()>'] }

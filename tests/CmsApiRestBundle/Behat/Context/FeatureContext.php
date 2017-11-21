@@ -3,8 +3,16 @@
 namespace Tests\CmsApiRestBundle\Behat\Context;
 
 use Behat\Behat\Context\Context;
+use Behat\Behat\Tester\Exception\PendingException;
+use Behat\Gherkin\Node\PyStringNode;
+use Coduo\PHPMatcher\Factory\SimpleFactory;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\SchemaTool;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
+use Nelmio\Alice\Loader\NativeLoader;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -17,7 +25,7 @@ class FeatureContext extends WebTestCase implements Context
     /** @var Client */
     private $client;
 
-    /** @var  Response */
+    /** @var Response */
     protected $response;
 
     /**
@@ -34,34 +42,107 @@ class FeatureContext extends WebTestCase implements Context
         $this->client = self::createClient([], ['HTTP_HOST' => self::HTTP_HOST]);
     }
 
-    protected function request(string $method, string $uri, array $options = [])
+    protected function setUpDatabase()
     {
-        $this->client->request($method, $uri);
+        $entityManager = $this->getEntityManager();
+        $schemaTool = new SchemaTool($entityManager);
+        $schemaTool->dropDatabase();
+        $classes = $entityManager->getMetadataFactory()->getAllMetadata();
+        $schemaTool->createSchema($classes);
+    }
+
+    protected function loadDoctrineFixtures(array $files)
+    {
+        $loader = new NativeLoader();
+        $objectSet = $loader->loadFiles($files);
+        $entityManager = $this->getEntityManager();
+
+        foreach ($objectSet->getObjects() as $object) {
+            $entityManager->persist($object);
+            $entityManager->flush();
+        }
+    }
+
+    protected function getEntityManager(): EntityManager
+    {
+        /** @var ContainerInterface $container */
+        $container = $this->getContainer();
+
+        /** @var ManagerRegistry $registry */
+        $registry = $container->get('doctrine');
+
+        /** @var EntityManager $entityManager */
+        $entityManager = $registry->getManager();
+
+        return $entityManager;
+    }
+
+    protected function request(string $method, string $uri, array $parameters = [])
+    {
+        $this->client->request($method, $uri, $parameters);
         $this->response = $this->client->getResponse();
+
+        //var_dump($this->response->getContent());
     }
 
     /**
-     * @When /^I send a "([^"]*)" request to "([^"]*)"$/
+     * @When /^I send a "([^"]*)" request on "([^"]*)"$/
+     * @param string $method
+     * @param string $uri
      */
-    public function iSendARequestTo($method, $uri)
+    public function iSendARequestOn(string $method, string $uri)
     {
         $this->request($method, $uri);
     }
 
     /**
-     * @Given /^the response code is "([^"]*)"$/
+     * @When /^I send a "([^"]*)" on "([^"]*)" with:$/
+     * @param string $method
+     * @param string $uri
+     * @param PyStringNode $string
      */
-    public function theResponseCodeIs($code)
+    public function iSendAOnWith(string $method, string $uri, PyStringNode $string)
+    {
+        $this->request($method, $uri, json_decode($string->getRaw(), true));
+    }
+
+    /**
+     * @Given /^the response code is "([^"]*)"$/
+     * @param int $code
+     */
+    public function theResponseCodeIs(int $code)
+    {
+        $this->assertEquals($code, $this->response->getStatusCode());
+    }
+
+    /**
+     * @Then /^the response status code should be "([^"]*)"$/
+     */
+    public function theResponseStatusCodeShouldBe(int $code)
     {
         $this->assertEquals($code, $this->response->getStatusCode());
     }
 
     /**
      * @Given /^the response message is '([^']+)'$/
+     * @param string $message
      */
-    public function theResponseMessageIs($message)
+    public function theResponseMessageIs(string $message)
     {
         $response = json_decode($this->response->getContent(), true);
         $this->assertEquals($message, $response['message']);
+    }
+
+    /**
+     * @Given /^the JSON response should match:$/
+     * @param PyStringNode $string
+     */
+    public function theJSONResponseShouldMatch(PyStringNode $string)
+    {
+        $matcher = (new SimpleFactory())->createMatcher();
+        $this->assertTrue(
+            $matcher->match($this->response->getContent(), $string->getRaw()),
+            'Response match error'
+        );
     }
 }

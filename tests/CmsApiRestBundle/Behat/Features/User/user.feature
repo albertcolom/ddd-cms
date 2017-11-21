@@ -2,16 +2,51 @@ Feature: User endpoint
   As a user
   I want test the user workflow
 
-  Scenario: List the wallets
-    When I send a "GET" request to "user/03ed82bf-c9ec-4591-aeda-1f455070ae4a"
-    And the response code is "200"
+  Background:
+    Given a list of user persisted
+
+  Scenario: Create a new user
+    When I send a "POST" on "user" with:
+    """
+    {
+      "name": "test_name",
+      "email": "test@email.com"
+    }
+    """
+    Then the response status code should be "202"
+    And the JSON response should match:
+    """
+    {
+        "user": {
+            "id": "@uuid@",
+            "name": "test_name",
+            "email": "test@email.com",
+            "created_on": "@string@.isDateTime()"
+        }
+    }
+    """
+
+  Scenario: Get an existent user
+    When I send a "GET" request on "user/147fbb70-d6df-4cbe-88fc-f6494ec05101"
+    Then the response status code should be "200"
+    And the JSON response should match:
+    """
+    {
+        "user": {
+            "id": "147fbb70-d6df-4cbe-88fc-f6494ec05101",
+            "name": "@string@",
+            "email": "@string@isEmail()",
+            "created_on": "@string@.isDateTime()"
+        }
+    }
+    """
 
   Scenario: Try to get a user with invalid id
-    When I send a "GET" request to "user/xxxx-xxxx-xxx-xx"
-    And the response code is "400"
-    And the response message is 'Value "xxxx-xxxx-xxx-xx" is not a valid UUID.'
+    When I send a "GET" request on "user/199"
+    Then the response status code should be "400"
+    And the response message is 'Value "199" is not a valid UUID.'
 
   Scenario: Try to get a non existent user
-    When I send a "GET" request to "user/03ed82bf-c9ec-4591-aeda-1f455070ae4b"
-    And the response code is "404"
+    When I send a "GET" request on "user/03ed82bf-c9ec-4591-aeda-1f455070ae4b"
+    Then the response status code should be "404"
     And the response message is 'User with id "03ed82bf-c9ec-4591-aeda-1f455070ae4b" not found'
