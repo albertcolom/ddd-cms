@@ -53,7 +53,7 @@ COPY composer.lock /app
 COPY build.xml /app
 COPY phpunit.xml.dist /app
 COPY ruleset.xml /app
-COPY behat.xml /app
+COPY behat.yml /app
 
 WORKDIR /app
 
