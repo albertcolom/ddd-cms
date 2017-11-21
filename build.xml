@@ -10,6 +10,7 @@
     <property name="phpmd" value="${basedir}/bin/phpmd"/>
     <property name="phpmd-config" value="${basedir}/ruleset.xml"/>
     <property name="phpcs" value="${basedir}/bin/phpcs"/>
+    <property name="behat" value="${basedir}/bin/behat"/>
 
     <target name="composer-check">
         <available file="${composer}" property="composer.exist"/>
@@ -98,6 +99,10 @@
             <arg value="--standard=PSR2"/>
             <arg value="src"/>
         </exec>
+    </target>
+
+    <target name="behat">
+        <exec executable="${behat}" failonerror="true"/>
     </target>
 
     <target name="build" depends="composer, database, cache" description="Prepare project dependencies"/>
