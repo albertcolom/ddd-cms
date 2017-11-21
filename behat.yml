@@ -5,3 +5,8 @@ default:
                 - "%paths.base%/tests/CmsApiRestBundle/Behat/Features/User"
             contexts:
                 - Tests\CmsApiRestBundle\Behat\Context\User\UserContext
+        site:
+            paths:
+                - "%paths.base%/tests/CmsApiRestBundle/Behat/Features/Site"
+            contexts:
+                - Tests\CmsApiRestBundle\Behat\Context\Site\SiteContext
