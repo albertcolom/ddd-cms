@@ -16,4 +16,3 @@ jobs:
       script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant phpunit
     - script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant phpmd
     - script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant psr2
-    - script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant behat
