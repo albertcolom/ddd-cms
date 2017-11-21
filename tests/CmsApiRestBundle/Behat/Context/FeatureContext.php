@@ -3,7 +3,6 @@
 namespace Tests\CmsApiRestBundle\Behat\Context;
 
 use Behat\Behat\Context\Context;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Coduo\PHPMatcher\Factory\SimpleFactory;
 use Doctrine\ORM\EntityManager;
@@ -81,8 +80,6 @@ class FeatureContext extends WebTestCase implements Context
     {
         $this->client->request($method, $uri, $parameters);
         $this->response = $this->client->getResponse();
-
-        //var_dump($this->response->getContent());
     }
 
     /**
@@ -94,6 +91,18 @@ class FeatureContext extends WebTestCase implements Context
     {
         $this->request($method, $uri);
     }
+
+    /**
+     * @When /^I send a "([^"]*)" request on "([^"]*)" with params '([^']*)'$/
+     * @param string $method
+     * @param string $uri
+     * @param string $params
+     */
+    public function iSendARequestOnWithParams(string $method, string $uri, string $params)
+    {
+        $this->request($method, $uri.'?'.$params);
+    }
+
 
     /**
      * @When /^I send a "([^"]*)" on "([^"]*)" with:$/
@@ -124,7 +133,7 @@ class FeatureContext extends WebTestCase implements Context
     }
 
     /**
-     * @Given /^the response message is '([^']+)'$/
+     * @Given /^the response message is '([^']*)'$/
      * @param string $message
      */
     public function theResponseMessageIs(string $message)

@@ -14,27 +14,27 @@ CmsBundle\Cms\Domain\Model\Page\Entity\Page:
             expose: true
             type: string
             groups: [Default]
-        user:
-            expose: true
-            groups: [Default]
-            type: CmsBundle\Cms\Domain\Model\User\Entity\User
-        site:
-            expose: true
-            groups: [Default]
-            type: CmsBundle\Cms\Domain\Model\Site\Entity\Site
+        #user:
+        #    expose: true
+        #    groups: [Default]
+        #    type: CmsBundle\Cms\Domain\Model\User\Entity\User
+        #site:
+        #    expose: true
+        #    groups: [Default]
+        #    type: CmsBundle\Cms\Domain\Model\Site\Entity\Site
         createdOn:
             expose: true
             type: DateTime
             groups: [Default]
 
-    #virtual_properties:
-    #    userId:
-    #        serialized_name: user
-    #        exp: object.user().id()
-    #        expose: true
-    #        groups: [Default]
-    #    siteId:
-    #        serialized_name: site
-    #        exp: object.site().id()
-    #        expose: true
-    #        groups: [Default]
+    virtual_properties:
+        userId:
+            serialized_name: user
+            exp: object.user().id()
+            expose: true
+            groups: [Default]
+        siteId:
+            serialized_name: site
+            exp: object.site().id()
+            expose: true
+            groups: [Default]

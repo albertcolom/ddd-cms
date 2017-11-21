@@ -10,3 +10,8 @@ default:
                 - "%paths.base%/tests/CmsApiRestBundle/Behat/Features/Site"
             contexts:
                 - Tests\CmsApiRestBundle\Behat\Context\Site\SiteContext
+        page:
+            paths:
+                - "%paths.base%/tests/CmsApiRestBundle/Behat/Features/Page"
+            contexts:
+                - Tests\CmsApiRestBundle\Behat\Context\Page\PageContext
