@@ -27,4 +27,4 @@ jobs:
       script:
       - echo "RELEASE="$RELEASE > resources/docker/test/.env
       - docker-compose -f resources/docker/test/docker-compose.yml up -d
-      - docker-compose exec php ant behat
+      - docker-compose -f resources/docker/test/docker-compose.yml exec php ant behat
