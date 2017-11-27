@@ -129,6 +129,7 @@ class FeatureContext extends WebTestCase implements Context
      */
     public function theResponseStatusCodeShouldBe(int $code)
     {
+        var_dump($this->response->getContent());
         $this->assertEquals($code, $this->response->getStatusCode());
     }
 
