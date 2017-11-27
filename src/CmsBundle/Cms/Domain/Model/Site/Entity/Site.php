@@ -2,6 +2,8 @@
 
 namespace CmsBundle\Cms\Domain\Model\Site\Entity;
 
+use CmsBundle\Cms\Domain\Model\Common\Event\DomainEventPublisher;
+use CmsBundle\Cms\Domain\Model\Site\Event\SiteWasCreated;
 use CmsBundle\Cms\Domain\Model\Site\ValueObject\SiteIdentity;
 
 class Site
@@ -29,6 +31,10 @@ class Site
         $this->name = $name;
         $this->description = $description;
         $this->createdOn = new \DateTime();
+
+        DomainEventPublisher::instance()->publish(
+            new SiteWasCreated($id, $name, $description)
+        );
     }
 
     /**

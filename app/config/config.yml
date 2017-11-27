@@ -133,4 +133,5 @@ tactician:
         default:
             middleware:
                 - tactician.middleware.locking
+                - cms.infrastructure.services.bus.middleware.event.publisher
                 - tactician.middleware.command_handler

@@ -9,3 +9,9 @@ services:
         class: CmsBundle\Cms\Infrastructure\Services\Bus\CommandBus
         arguments:
           - '@tactician.commandbus'
+
+    cms.infrastructure.services.bus.middleware.event.publisher:
+        class: CmsBundle\Cms\Infrastructure\Services\Bus\Middleware\EventPublisherMiddleware
+        arguments:
+          - '@cms.infrastructure.services.rabbitmq.event.publisher'
+          - '@jms_serializer.serializer'

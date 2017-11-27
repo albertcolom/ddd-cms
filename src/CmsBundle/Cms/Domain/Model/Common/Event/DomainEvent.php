@@ -4,7 +4,7 @@ namespace CmsBundle\Cms\Domain\Model\Common\Event;
 
 interface DomainEvent
 {
-    public function id(): DomainEventIdentity;
+    public function id(): string;
 
     public function type(): string;
 

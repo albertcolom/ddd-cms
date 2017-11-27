@@ -2,6 +2,8 @@
 
 namespace CmsBundle\Cms\Domain\Model\User\Entity;
 
+use CmsBundle\Cms\Domain\Model\Common\Event\DomainEventPublisher;
+use CmsBundle\Cms\Domain\Model\User\Event\UserWasCreated;
 use CmsBundle\Cms\Domain\Model\User\ValueObject\UserIdentity;
 
 class User
@@ -29,6 +31,10 @@ class User
         $this->name = $name;
         $this->setEmail($email);
         $this->createdOn = new \DateTime();
+
+        DomainEventPublisher::instance()->publish(
+            new  UserWasCreated($id, $name, $email)
+        );
     }
 
     /**
