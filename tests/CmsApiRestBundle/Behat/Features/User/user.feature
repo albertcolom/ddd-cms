@@ -6,7 +6,7 @@ Feature: User endpoint
     Given a list of user persisted
 
   Scenario: Create a new user
-    When I send a "POST" on "user" with:
+    When I send a "POST" on "api/v1/user" with:
     """
     {
       "name": "test_name",
@@ -27,7 +27,7 @@ Feature: User endpoint
     """
 
   Scenario: Get an existent user
-    When I send a "GET" request on "user/147fbb70-d6df-4cbe-88fc-f6494ec05101"
+    When I send a "GET" request on "api/v1/user/147fbb70-d6df-4cbe-88fc-f6494ec05101"
     Then the response status code should be "200"
     And the JSON response should match:
     """
@@ -42,11 +42,11 @@ Feature: User endpoint
     """
 
   Scenario: Try to get a user with invalid id
-    When I send a "GET" request on "user/199"
+    When I send a "GET" request on "api/v1/user/199"
     Then the response status code should be "400"
     And the response message is 'Value "199" is not a valid UUID.'
 
   Scenario: Try to get a non existent user
-    When I send a "GET" request on "user/03ed82bf-c9ec-4591-aeda-1f455070ae4b"
+    When I send a "GET" request on "api/v1/user/03ed82bf-c9ec-4591-aeda-1f455070ae4b"
     Then the response status code should be "404"
     And the response message is 'User with id "03ed82bf-c9ec-4591-aeda-1f455070ae4b" not found'

@@ -1,6 +1,6 @@
 services:
 
-    cms.infrastructure.services.rabbitmq.event.publisher:
+    cms.infrastructure.services.rabbit_mq.publisher:
         class: CmsBundle\Cms\Infrastructure\Services\RabbitMQ\Publisher
         arguments:
           - '@old_sound_rabbit_mq.events_producer'
@@ -13,5 +13,5 @@ services:
     cms.infrastructure.services.bus.middleware.event.publisher:
         class: CmsBundle\Cms\Infrastructure\Services\Bus\Middleware\EventPublisherMiddleware
         arguments:
-          - '@cms.infrastructure.services.rabbitmq.event.publisher'
+          - '@cms.infrastructure.services.rabbit_mq.publisher'
           - '@jms_serializer.serializer'

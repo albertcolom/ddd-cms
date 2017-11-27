@@ -1,11 +1,11 @@
-page:
+api.page:
     type: rest
     resource: cms.controller.page
 
-user:
+api.user:
     type: rest
     resource: cms.controller.user
 
-site:
+api.site:
     type: rest
     resource: cms.controller.site

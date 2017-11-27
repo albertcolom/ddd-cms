@@ -114,7 +114,7 @@ jms_serializer:
 old_sound_rabbit_mq:
     connections:
         default:
-            host:     'rabbitmq'
+            host:     'localhost'
             port:     5672
             user:     'guest'
             password: 'guest'
