@@ -5,8 +5,8 @@ dist: trusty
 language: generic
 
 env:
-  - RELEASE=$TRAVIS_BUILD_NUMBER
-  - DOCKER_COMPOSE_VERSION=1.4.2
+  RELEASE=$TRAVIS_BUILD_NUMBER
+  DOCKER_COMPOSE_VERSION=1.4.2
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -23,7 +23,6 @@ jobs:
       script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant phpunit
     - script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant phpmd
     - script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant psr2
-    - script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant behat
     - stage: functional testing (Behat)
       script:
       - cd resources/docker/test && bash building.sh $RELEASE
