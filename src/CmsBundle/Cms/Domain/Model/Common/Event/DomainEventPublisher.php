@@ -35,13 +35,13 @@ class DomainEventPublisher
     }
 
     /**
-     * @param $domainEventSubscriber
+     * @param $eventSubscriber
      * @return int
      */
-    public function subscribe($domainEventSubscriber)
+    public function subscribe($eventSubscriber)
     {
         $id = $this->id;
-        $this->subscribers[$id] = $domainEventSubscriber;
+        $this->subscribers[$id] = $eventSubscriber;
         $this->id++;
 
         return $id;
