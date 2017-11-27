@@ -6,7 +6,7 @@ language: generic
 
 env:
   RELEASE=$TRAVIS_BUILD_NUMBER
-  DOCKER_COMPOSE_VERSION=1.4.2
+  DOCKER_COMPOSE_VERSION=1.17.1
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
