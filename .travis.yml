@@ -25,5 +25,5 @@ jobs:
     - script: docker run --rm $DOCKER_USERNAME/travis-ci-build:php-sf-$RELEASE ant psr2
     - stage: functional testing (Behat)
       script:
-      - cd resources/docker/test && bash building.sh $RELEASE
-      - docker-compose exec php bin/behat
+      - echo "RELEASE="$RELEASE > resources/docker/test/.env
+      - docker-compose -f resources/docker/test/docker-compose.yml up -d
