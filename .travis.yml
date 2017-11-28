@@ -27,4 +27,5 @@ jobs:
       script:
       - echo "RELEASE="$RELEASE > resources/docker/test/.env
       - docker-compose -f resources/docker/test/docker-compose.yml up -d
+      - bash -c "while ! curl -s localhost:5672 > /dev/null; do echo waiting for rabbitmq; sleep 3; done;"
       - docker-compose -f resources/docker/test/docker-compose.yml exec php ant behat
