@@ -6,6 +6,7 @@ Feature: User endpoint
     Given a list of user persisted
 
   Scenario: Create a new user
+    Given the queue associated to "events" producer is empty
     When I send a "POST" on "api/v1/user" with:
     """
     {
@@ -24,6 +25,19 @@ Feature: User endpoint
             "created_on": "@string@.isDateTime()"
         }
     }
+    """
+    And the queue associated to "events" producer has messages should match:
+    """
+    [
+        {
+            "id": "@uuid@",
+            "type": "UserWasCreated",
+            "occurred_on": "@string@.isDateTime()",
+            "user_id": "@uuid@",
+            "name": "test_name",
+            "email": "test@email.com"
+        }
+    ]
     """
 
   Scenario: Get an existent user

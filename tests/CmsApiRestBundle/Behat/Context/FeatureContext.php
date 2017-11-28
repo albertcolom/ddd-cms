@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Nelmio\Alice\Loader\NativeLoader;
+use PhpAmqpLib\Message\AMQPMessage;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -76,6 +77,37 @@ class FeatureContext extends WebTestCase implements Context
         return $entityManager;
     }
 
+    protected function getRabbitMqProducer()
+    {
+        /** @var ContainerInterface $container */
+        $container = $this->getContainer();
+
+        return $container->get('old_sound_rabbit_mq.events_producer');
+    }
+
+    protected function getQueuedMessages($producerName)
+    {
+        $producer = $this->getRabbitMqProducer();
+        $channel = $producer->getChannel();
+
+        $queuedMessages = [];
+        do {
+            /** @var AMQPMessage $message */
+            $message = $channel->basic_get($producerName);
+            if (!$message instanceof AMQPMessage) {
+                break;
+            }
+
+            $queuedMessages[] = json_decode($message->getBody(), true);
+
+            if ($message->get('message_count') == 0) {
+                break;
+            }
+        } while (true);
+
+        return $queuedMessages;
+    }
+
     protected function request(string $method, string $uri, array $parameters = [])
     {
         $this->client->request($method, $uri, $parameters);
@@ -126,10 +158,10 @@ class FeatureContext extends WebTestCase implements Context
 
     /**
      * @Then /^the response status code should be "([^"]*)"$/
+     * @param int $code
      */
     public function theResponseStatusCodeShouldBe(int $code)
     {
-        var_dump($this->response->getContent());
         $this->assertEquals($code, $this->response->getStatusCode());
     }
 
@@ -152,6 +184,39 @@ class FeatureContext extends WebTestCase implements Context
         $matcher = (new SimpleFactory())->createMatcher();
         $this->assertTrue(
             $matcher->match($this->response->getContent(), $string->getRaw()),
+            'Response match error'
+        );
+    }
+
+    /**
+     * @Given /^the queue associated to "([^"]*)" producer is empty$/
+     * @param string $producerName
+     */
+    public function theQueueAssociatedToProducerIsEmpty(string $producerName)
+    {
+        $producer = $this->getRabbitMqProducer();
+        $channel = $producer->getChannel();
+
+        $channel->queue_declare($producerName, false, true, false, false);
+        $channel->queue_purge($producerName);
+
+        $this->assertEmpty($channel->basic_get($producerName));
+    }
+
+    /**
+     * @Given /^the queue associated to "([^"]*)" producer has messages should match:$/
+     * @param string $producerName
+     * @param PyStringNode $expectedMessages
+     */
+    public function theQueueAssociatedToProducerHasMessagesShouldMatch(
+        string $producerName,
+        PyStringNode $expectedMessages
+    ) {
+        $messages = $this->getQueuedMessages($producerName);
+
+        $matcher = (new SimpleFactory())->createMatcher();
+        $this->assertTrue(
+            $matcher->match(json_encode($messages), $expectedMessages->getRaw()),
             'Response match error'
         );
     }

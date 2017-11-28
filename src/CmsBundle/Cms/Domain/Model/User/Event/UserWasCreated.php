@@ -11,16 +11,16 @@ class UserWasCreated extends AbstractDomainEvent
     private $userId;
 
     /** @var string */
-    private $username;
+    private $name;
 
     /** @var string */
     private $email;
 
-    public function __construct(UserIdentity $siteIdentity, string $username, string $email)
+    public function __construct(UserIdentity $siteIdentity, string $name, string $email)
     {
         parent::__construct();
         $this->userId = $siteIdentity->id();
-        $this->username = $username;
+        $this->name = $name;
         $this->email = $email;
     }
 
@@ -29,9 +29,9 @@ class UserWasCreated extends AbstractDomainEvent
         return $this->userId;
     }
 
-    public function username(): string
+    public function name(): string
     {
-        return $this->username;
+        return $this->name;
     }
 
     public function email(): string

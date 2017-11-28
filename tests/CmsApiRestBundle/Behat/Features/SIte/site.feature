@@ -6,6 +6,7 @@ Feature: Site endpoint
     Given a list of site persisted
 
   Scenario: Create a new site
+    Given the queue associated to "events" producer is empty
     When I send a "POST" on "api/v1/site" with:
     """
     {
@@ -24,6 +25,19 @@ Feature: Site endpoint
             "created_on": "@string@.isDateTime()"
         }
     }
+    """
+    And the queue associated to "events" producer has messages should match:
+    """
+    [
+        {
+            "id": "@uuid@",
+            "type": "SiteWasCreated",
+            "occurred_on": "@string@.isDateTime()",
+            "site_id": "@uuid@",
+            "name": "test_name",
+            "description": "test_description"
+        }
+    ]
     """
 
   Scenario: Get an existent site
