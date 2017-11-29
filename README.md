@@ -15,9 +15,12 @@ Simple CMS with DDD
 - [x] **RESTful API**
 - [x] Implement dev fixtures with **alice**
 - [x] Unit testing with **PHPUnit**
-- [x] Test API with ***Behat***
+- [x] Test API with **Behat**
 - [x] CommandHandler
 - [x] Implement **CommandBus** with **tactician**
+- [x] **DomainEvents**
+- [x] Publish Events to **RabbitMQ**
+- [x] Events stored in **ElasticSearch**
 - [x] Nginx logs with **ELK** (Elasticsearch + Logstash + Kibana)
 
 ### Docker containers
@@ -51,17 +54,22 @@ Add domain in host (Optional)
 ```sh
 127.0.0.1 ddd.cms.dev
 ```
-   
-### Symfony console
-```sh
-$ docker-compose exec php bin/console
-```
 
 ### The Environment
 - **API Doc:** ```http://localhost/api/doc or http://ddd.cms.dev/api/doc```
 - **RabbitMQ:** ```http://localhost:15672 or http://ddd.cms.dev:15672```
 - **ElasticSearch:** ```http://localhost:9200 or http://ddd.cms.dev:9200```
 - **Kibana:** ```http://localhost:5601 or http://ddd.cms.dev:5601```
+
+### Symfony console
+```sh
+$ docker-compose exec php bin/console
+```
+
+Listener to read message from RabbitMQ and publish on ElasticSearch
+```sh
+$ docker-compose exec php bin/console rabbitmq:consumer events
+```
 
 ### Test
 PHPunit
