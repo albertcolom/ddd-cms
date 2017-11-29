@@ -127,6 +127,12 @@ old_sound_rabbit_mq:
             connection:       default
             exchange_options: { name: 'events', type: direct }
             queue_options: {name: 'events', arguments: {'x-ha-policy': ['S', 'all']}}
+    consumers:
+        events:
+            connection:       default
+            exchange_options: {name: 'events', type: direct}
+            queue_options: {name: 'events', arguments: {'x-ha-policy': ['S', 'all']}}
+            callback: cms.infrastructure.evens.elastic.store
 
 tactician:
     commandbus:
@@ -135,3 +141,9 @@ tactician:
                 - tactician.middleware.locking
                 - cms.infrastructure.services.bus.middleware.event.publisher
                 - tactician.middleware.command_handler
+
+fos_elastica:
+    clients:
+        default: { host: elasticsearch, port: 9200 }
+    indexes:
+        events: ~

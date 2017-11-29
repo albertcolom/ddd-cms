@@ -5,10 +5,10 @@ namespace CmsBundle\Cms\Domain\Model\Common\Event;
 abstract class AbstractDomainEvent implements DomainEvent
 {
     /** @var string */
-    private $id;
+    private $eventId;
 
     /** @var string */
-    private $type;
+    private $eventType;
 
     /** @var \DateTimeImmutable */
     private $occurredOn;
@@ -18,31 +18,25 @@ abstract class AbstractDomainEvent implements DomainEvent
      */
     public function __construct()
     {
-        $this->id = DomainEventIdentity::instance()->id();
-        $this->setType();
+        $this->eventId = DomainEventIdentity::instance()->id();
+        $this->eventType = get_class($this);
         $this->occurredOn = new \DateTimeImmutable();
     }
 
-    private function setType()
+    /**
+     * @return string
+     */
+    public function eventId(): string
     {
-        $path = explode('\\', get_class($this));
-        $this->type = array_pop($path);
+        return $this->eventId;
     }
 
     /**
      * @return string
      */
-    public function id(): string
+    public function eventType(): string
     {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function type(): string
-    {
-        return $this->type;
+        return $this->eventType;
     }
 
     /**

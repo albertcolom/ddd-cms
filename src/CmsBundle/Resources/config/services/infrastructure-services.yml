@@ -15,3 +15,8 @@ services:
         arguments:
           - '@cms.infrastructure.services.rabbit_mq.publisher'
           - '@jms_serializer.serializer'
+
+    cms.infrastructure.evens.elastic.store:
+        class: CmsBundle\Cms\Infrastructure\Event\ElasticEventStore
+        arguments:
+          - '@fos_elastica.index.events'
