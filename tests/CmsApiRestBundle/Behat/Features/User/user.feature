@@ -30,8 +30,8 @@ Feature: User endpoint
     """
     [
         {
-            "id": "@uuid@",
-            "type": "UserWasCreated",
+            "event_id": "@uuid@",
+            "event_type": "CmsBundle\\Cms\\Domain\\Model\\User\\Event\\UserWasCreated",
             "occurred_on": "@string@.isDateTime()",
             "user_id": "@uuid@",
             "name": "test_name",

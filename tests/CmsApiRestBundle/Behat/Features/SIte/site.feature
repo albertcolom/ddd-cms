@@ -30,8 +30,8 @@ Feature: Site endpoint
     """
     [
         {
-            "id": "@uuid@",
-            "type": "SiteWasCreated",
+            "event_id": "@uuid@",
+            "event_type": "CmsBundle\\Cms\\Domain\\Model\\Site\\Event\\SiteWasCreated",
             "occurred_on": "@string@.isDateTime()",
             "site_id": "@uuid@",
             "name": "test_name",
