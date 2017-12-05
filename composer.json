@@ -15,6 +15,7 @@
     },
     "require": {
         "php": ">=7.0",
+        "albertcolom/assert-email": "^1.0",
         "coduo/php-matcher": "^2.3",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",

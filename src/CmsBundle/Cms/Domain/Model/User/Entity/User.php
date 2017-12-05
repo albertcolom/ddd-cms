@@ -2,6 +2,7 @@
 
 namespace CmsBundle\Cms\Domain\Model\User\Entity;
 
+use albertcolom\Assert\AssertEmail;
 use CmsBundle\Cms\Domain\Model\Common\Event\DomainEventPublisher;
 use CmsBundle\Cms\Domain\Model\User\Event\UserWasCreated;
 use CmsBundle\Cms\Domain\Model\User\ValueObject\UserIdentity;
@@ -85,9 +86,9 @@ class User
      */
     public function setEmail(string $email)
     {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException("Invalid email $email");
-        }
+        AssertEmail::valid($email);
+        AssertEmail::dns($email);
+        AssertEmail::temporalMail($email);
 
         $this->email = $email;
     }
