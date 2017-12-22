@@ -22,6 +22,9 @@ Simple CMS with DDD
 - [x] Publish Events to **RabbitMQ**
 - [x] Events stored in **ElasticSearch**
 - [x] Nginx logs with **ELK** (Elasticsearch + Logstash + Kibana)
+- [x] **Continuous integration** with Travis and Docker
+
+NOTE: Refactor Pending
 
 ### Docker containers
 
