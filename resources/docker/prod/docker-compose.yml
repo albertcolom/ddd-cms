@@ -1,0 +1,11 @@
+version: '2'
+services:
+
+  php:
+    image: albertcolom/travis-ci-build:php-sf-${RELEASE}
+
+  nginx:
+    image: albertcolom/travis-ci-build:nginx-web-${RELEASE}
+    ports:
+      - 80:80
+      - 443:443
