@@ -1,0 +1,37 @@
+App\Domain\Page\Entity\Page:
+    type: entity
+    table: page
+    repositoryClass: App\Infrastructure\Domain\Page\Repository\DoctrinePageRepository
+    id:
+      id:
+        type: pageIdentity
+        nullable: false
+    fields:
+      content:
+        type: string
+        nullable: false
+      status:
+        type: integer
+        nullable: true
+      createdOn:
+        type: datetime
+
+    manyToOne:
+      site:
+        targetEntity: App\Domain\Site\Entity\Site
+        joinColumn:
+          name: site_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+        cascade:
+          - all
+      user:
+        targetEntity: App\Domain\User\Entity\User
+        joinColumn:
+          name: user_id
+          referencedColumnName: id
+          nullable: false
+          onDelete: CASCADE
+        cascade:
+          - all

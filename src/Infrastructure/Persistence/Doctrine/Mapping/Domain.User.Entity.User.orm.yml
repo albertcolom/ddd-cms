@@ -1,0 +1,17 @@
+App\Domain\User\Entity\User:
+    type: entity
+    table: user
+    repositoryClass: App\Infrastructure\Domain\User\Repository\DoctrineUserRepository
+    id:
+      id:
+        type: userIdentity
+        nullable: false
+    fields:
+      name:
+        type: string
+        nullable: false
+      email:
+        type: string
+        nullable: true
+      createdOn:
+        type: datetime

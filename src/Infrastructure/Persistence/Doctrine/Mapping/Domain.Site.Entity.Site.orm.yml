@@ -1,0 +1,17 @@
+App\Domain\Site\Entity\Site:
+    type: entity
+    table: site
+    repositoryClass: App\Infrastructure\Domain\Site\Repository\DoctrineSiteRepository
+    id:
+      id:
+        type: siteIdentity
+        nullable: false
+    fields:
+      name:
+        type: string
+        nullable: false
+      description:
+        type: string
+        nullable: true
+      createdOn:
+        type: datetime
