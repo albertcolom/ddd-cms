@@ -1,3 +1,0 @@
-CmsBundle\Cms\Domain\Model\Site\Entity\Site:
-    site{1..10}:
-        __factory: { instance: ['<(CmsBundle\Cms\Domain\Model\Site\ValueObject\SiteIdentity::instance())>', '<company()>', '<catchPhrase()>'] }

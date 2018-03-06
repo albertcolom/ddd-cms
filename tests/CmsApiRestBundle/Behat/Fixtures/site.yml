@@ -1,7 +1,0 @@
-CmsBundle\Cms\Domain\Model\Site\Entity\Site:
-    site_1:
-        __factory: { instance: ['<(CmsBundle\Cms\Domain\Model\Site\ValueObject\SiteIdentity::instanceFromId("0195e8c4-ad5a-4303-a4f3-c4190b067671"))>', '<company()>', '<catchPhrase()>'] }
-    site_2:
-        __factory: { instance: ['<(CmsBundle\Cms\Domain\Model\Site\ValueObject\SiteIdentity::instanceFromId("0195e8c4-ad5a-4303-a4f3-c4190b067672"))>', '<company()>', '<catchPhrase()>'] }
-    site_3:
-        __factory: { instance: ['<(CmsBundle\Cms\Domain\Model\Site\ValueObject\SiteIdentity::instanceFromId("0195e8c4-ad5a-4303-a4f3-c4190b067673"))>', '<company()>', '<catchPhrase()>'] }

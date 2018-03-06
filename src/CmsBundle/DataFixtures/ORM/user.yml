@@ -1,3 +1,0 @@
-CmsBundle\Cms\Domain\Model\User\Entity\User:
-    user{1..10}:
-        __factory: { instance: ['<(CmsBundle\Cms\Domain\Model\User\ValueObject\UserIdentity::instance())>', '<username()>', '<email()>'] }

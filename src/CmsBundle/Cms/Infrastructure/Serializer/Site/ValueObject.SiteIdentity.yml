@@ -1,7 +1,0 @@
-CmsBundle\Cms\Domain\Model\Site\ValueObject\SiteIdentity:
-    exclusion_policy: ALL
-    properties:
-        id:
-            expose: true
-            type: string
-            groups: [Default]
