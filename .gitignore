@@ -1,4 +1,4 @@
-
+logs
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/

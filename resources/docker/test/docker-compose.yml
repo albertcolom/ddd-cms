@@ -1,0 +1,22 @@
+version: '2'
+services:
+
+  php:
+    image: albertcolom/travis-ci-build:php-sf-${RELEASE}
+    links:
+      - rabbitmq
+
+  nginx:
+    image: albertcolom/travis-ci-build:nginx-web-${RELEASE}
+    ports:
+      - 80:80
+      - 443:443
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
