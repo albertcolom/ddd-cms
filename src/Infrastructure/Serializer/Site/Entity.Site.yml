@@ -1,0 +1,20 @@
+App\Domain\Site\Entity\Site:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            inline: true
+            groups: [Default]
+            type: App\Domain\Site\ValueObject\SiteIdentity
+        name:
+            expose: true
+            type: string
+            groups: [Default]
+        description:
+            expose: true
+            type: string
+            groups: [Default]
+        createdOn:
+            expose: true
+            type: DateTime
+            groups: [Default]

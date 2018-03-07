@@ -1,0 +1,13 @@
+jms_serializer:
+    metadata:
+        auto_detection: true
+        directories:
+            User:
+                namespace_prefix: "App\\¡Domain\\User"
+                path: "%kernel.root_dir%/Infrastructure/Serializer/User"
+            Site:
+                namespace_prefix: "App\\Domain\\Site"
+                path: "%kernel.root_dir%/Infrastructure/Serializer/Site"
+            Page:
+                namespace_prefix: "App\\Domain\\Page"
+                path: "%kernel.root_dir%/Infrastructure/Serializer/Page"

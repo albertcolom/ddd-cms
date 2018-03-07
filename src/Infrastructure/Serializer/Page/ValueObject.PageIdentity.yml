@@ -1,0 +1,7 @@
+App\Domain\Page\ValueObject\PageIdentity:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: string
+            groups: [Default]
