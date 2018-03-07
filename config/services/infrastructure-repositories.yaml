@@ -1,0 +1,23 @@
+services:
+
+    app.repository:
+        abstract: true
+        factory: ['@doctrine.orm.entity_manager', 'getRepository']
+
+    app.infrastructure.domain.site.repository.doctrine_site_repository:
+        class: App\Infrastructure\Domain\Site\Repository\DoctrineSiteRepository
+        parent: app.repository
+        arguments:
+          - App\Domain\Site\Entity\Site
+
+    app.infrastructure.domain.user.repository.doctrine_user_repository:
+        class: App\Infrastructure\Domain\User\Repository\DoctrineUserRepository
+        parent: app.repository
+        arguments:
+          - App\Domain\User\Entity\User
+
+    app.infrastructure.domain.page.repository.doctrine_page_repository:
+        class: App\Infrastructure\Domain\Page\Repository\DoctrinePageRepository
+        parent: app.repository
+        arguments:
+          - App\Domain\Page\Entity\Page

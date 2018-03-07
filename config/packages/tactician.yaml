@@ -1,0 +1,7 @@
+tactician:
+    commandbus:
+        default:
+            middleware:
+                - tactician.middleware.locking
+                - app.infrastructure.services.bus.middleware.event.publisher
+                - tactician.middleware.command_handler

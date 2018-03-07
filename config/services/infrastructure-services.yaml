@@ -1,0 +1,22 @@
+services:
+
+    app.infrastructure.services.rabbit_mq.publisher:
+        class: App\Infrastructure\Services\RabbitMQ\Publisher
+        arguments:
+          - '@old_sound_rabbit_mq.events_producer'
+
+    cms.infrastructure.services.bus.event.commandbus:
+        class: App\Infrastructure\Services\Bus\CommandBus
+        arguments:
+          - '@tactician.commandbus'
+
+    app.infrastructure.services.bus.middleware.event.publisher:
+        class: App\Infrastructure\Services\Bus\Middleware\EventPublisherMiddleware
+        arguments:
+          - '@app.infrastructure.services.rabbit_mq.publisher'
+          - '@jms_serializer.serializer'
+
+    app.infrastructure.evens.elastic.store:
+        class: App\Infrastructure\Event\ElasticEventStore
+        arguments:
+          - '@fos_elastica.index'

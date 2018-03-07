@@ -1,0 +1,52 @@
+services:
+
+    app.application.site.create_site.create_site_command_handler:
+        class: App\Application\Site\CommandHandler\CreateSite\CreateSiteCommandHandler
+        arguments:
+            - '@app.infrastructure.domain.site.repository.doctrine_site_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Site\CommandHandler\CreateSite\CreateSiteCommand }
+
+    app.application.site.get_site.get_site_command_handler:
+        class: App\Application\Site\CommandHandler\GetSite\GetSiteCommandHandler
+        arguments:
+            - '@app.infrastructure.domain.site.repository.doctrine_site_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Site\CommandHandler\GetSite\GetSiteCommand }
+
+    app.application.user.get_user.get_user_command_handler:
+        class: App\Application\User\CommandHandler\GetUser\GetUserCommandHandler
+        arguments:
+            - '@app.infrastructure.domain.user.repository.doctrine_user_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\User\CommandHandler\GetUser\GetUserCommand }
+
+    app.application.user.create_user.create_user_command_handler:
+        class: App\Application\User\CommandHandler\CreateUser\CreateUserCommandHandler
+        arguments:
+            - '@app.infrastructure.domain.user.repository.doctrine_user_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\User\CommandHandler\CreateUser\CreateUserCommand }
+
+    app.application.page.get_page.get_page_command_handler:
+        class: App\Application\Page\CommandHandler\GetPage\GetPageCommandHandler
+        arguments:
+            - '@app.infrastructure.domain.page.repository.doctrine_page_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Page\CommandHandler\GetPage\GetPageCommand }
+
+    app.application.page.find_page.find_page_command_handler:
+        class: App\Application\Page\CommandHandler\FindPages\FindPagesCommandHandler
+        arguments:
+            - '@app.infrastructure.domain.page.repository.doctrine_page_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Page\CommandHandler\FindPages\FindPagesCommand }
+
+    app.application.page.create_page.create_page_command_handler:
+        class: App\Application\Page\CommandHandler\CreatePage\CreatePageCommandHandler
+        arguments:
+            - '@app.infrastructure.domain.user.repository.doctrine_user_repository'
+            - '@app.infrastructure.domain.site.repository.doctrine_site_repository'
+            - '@app.infrastructure.domain.page.repository.doctrine_page_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Page\CommandHandler\CreatePage\CreatePageCommand }

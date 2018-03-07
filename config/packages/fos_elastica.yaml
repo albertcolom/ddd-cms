@@ -1,0 +1,5 @@
+fos_elastica:
+    clients:
+        default: { host: elasticsearch, port: 9200 }
+    indexes:
+        events: ~
