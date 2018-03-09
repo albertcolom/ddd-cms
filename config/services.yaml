@@ -1,4 +1,5 @@
 imports:
+    - { resource: services/api-controller.yaml }
     - { resource: services/infrastructure-services.yaml }
     - { resource: services/infrastructure-repositories.yaml }
     - { resource: services/application-command_handlers.yaml }
@@ -6,6 +7,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    locale: 'en'
 
 services:
     # default configuration for services in *this* file
@@ -18,15 +20,15 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/*'
-        exclude: '../src/{Entity,Migrations,Tests,Kernel.php}'
+    #App\:
+    #    resource: '../src/*'
+    #    exclude: '../src/{Entity,Migrations,Tests,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
+    #App\Api\Controller\:
+    #    resource: '../src/Api/Controller'
+    #    tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

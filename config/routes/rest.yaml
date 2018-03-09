@@ -1,0 +1,14 @@
+api.user:
+    type: rest
+    resource: cms.controller.user
+    prefix: api/
+
+api.site:
+    type: rest
+    resource: cms.controller.site
+    prefix: api/
+
+api.page:
+    type: rest
+    resource: cms.controller.page
+    prefix: api/

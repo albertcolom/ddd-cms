@@ -1,0 +1,27 @@
+fos_rest:
+    routing_loader:
+        include_format: false
+        default_format: json
+
+    view:
+        view_response_listener: 'force'
+        formats:
+            json: true
+
+        mime_types:
+            json: ['application/json', 'application/json;version=2.0']
+
+    format_listener:
+        rules:
+            - { path: '^/', priorities: ['json'], fallback_format: json, prefer_extension: true }
+
+    param_fetcher_listener: force
+
+    exception:
+        enabled: true
+        codes:
+            App\Domain\Common\Exception\NotFoundException: 404
+            InvalidArgumentException: 400
+        messages:
+            InvalidArgumentException: true
+            App\Domain\Common\Exception\NotFoundException: true

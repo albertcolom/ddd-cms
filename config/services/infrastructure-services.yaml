@@ -5,7 +5,7 @@ services:
         arguments:
           - '@old_sound_rabbit_mq.events_producer'
 
-    cms.infrastructure.services.bus.event.commandbus:
+    app.infrastructure.services.bus.event.commandbus:
         class: App\Infrastructure\Services\Bus\CommandBus
         arguments:
           - '@tactician.commandbus'

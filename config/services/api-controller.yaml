@@ -1,0 +1,19 @@
+services:
+
+    cms.controller.user:
+        class: App\Api\Controller\User\UserController
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@app.infrastructure.services.bus.event.commandbus'
+
+    cms.controller.site:
+        class: App\Api\Controller\Site\SiteController
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@app.infrastructure.services.bus.event.commandbus'
+
+    cms.controller.page:
+        class: App\Api\Controller\Page\PageController
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@app.infrastructure.services.bus.event.commandbus'
